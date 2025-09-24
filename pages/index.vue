@@ -1,36 +1,96 @@
 <template>
-  <div class="min-h-screen bg-gray-50 py-8">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-bold text-gray-900 text-center mb-12">
-        Iconos Dinámicos
-      </h1>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-        <div
-          v-for="item in iconos"
-          :key="item.id"
-          class="bg-white rounded-xl shadow-sm border p-6 text-center hover:shadow-md transition-shadow"
-        >
-          <Icon 
-            :name="`heroicons-${item.icon}`" 
-            :size="item.size" 
-            :color="item.color"
-            class="mx-auto mb-4"
-          />
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ item.nombre }}</h3>
-          <p class="text-sm text-gray-500">{{ item.categoria }}</p>
-        </div>
+  <div class="container max-w-full py-2 relative h-auto flex flex-col bg-interaccion bg-cover aspect-video">
+    <div class="father w-1/3 h-auto bg-transparent p-2 absolute left-40">
+      <div class="child">
+        <img class="logo" src="../assets/img/HERDIX.svg" alt="logo">
+      </div>
+      <div class="child bg-green-700 rounded-bl-[50%] rounded-br-[50%] p-4">
+        <p class="text-center text-3xl text-white">
+          ¡Descubre la manera más facil y eficiente de administrar tu finca con HERDIX!
+        </p>
       </div>
     </div>
   </div>
+
+  <div>
+    <!-- Hero -->
+    <section
+      class="  border-b-blue-600 border-l-violet-600 border-r-pink-500 border-t-purple-400  bg-gradient-to-r from-blue-500 to-yellow-500  text-white py-20 backdrop-blur-md bg-opacity-30">
+      <div class="max-w-6xl mx-auto text-center px-6">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+          Gestión Inteligente de Ganado Bovino
+        </h1>
+        <p class="text-lg md:text-xl mb-6">
+          Administra fincas, controla potreros, registra eventos y optimiza la crianza de tu ganado.
+        </p>
+      </div>
+    </section>
+
+    <!-- Roles -->
+    <section class="py-16 bg-gray-100">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center mb-12">Roles en la plataforma</h2>
+        <div class="grid md:grid-cols-4 gap-8">
+          <div class="bg-white p-6 rounded-lg shadow text-center">
+            <h3 class="font-bold text-lg mb-2">Administrador</h3>
+            <p>Gestiona usuarios, asigna roles y supervisa todas las operaciones.</p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow text-center">
+            <h3 class="font-bold text-lg mb-2">Supervisor</h3>
+            <p>Supervisa potreros, controla actividades y coordina el equipo.</p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow text-center">
+            <h3 class="font-bold text-lg mb-2">Veterinario</h3>
+            <p>Registra controles sanitarios y seguimiento de la salud animal.</p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow text-center">
+            <h3 class="font-bold text-lg mb-2">Colaborador</h3>
+            <p>Registra eventos y apoya las labores diarias de la finca.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Funcionalidades -->
+    <section class="py-16">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center mb-12">Funcionalidades clave</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-green-50 p-6 rounded-lg shadow">
+            <h3 class="font-bold mb-2">Gestión de fincas y potreros</h3>
+            <p>Organiza la información de tus terrenos, pastos y ocupaciones.</p>
+          </div>
+          <div class="bg-green-50 p-6 rounded-lg shadow">
+            <h3 class="font-bold mb-2">Control sanitario</h3>
+            <p>Registra vacunas, medicamentos y revisiones veterinarias.</p>
+          </div>
+          <div class="bg-green-50 p-6 rounded-lg shadow">
+            <h3 class="font-bold mb-2">Registro de eventos</h3>
+            <p>Documenta nacimientos, ventas y cualquier evento importante.</p>
+          </div>
+          <div class="bg-green-50 p-6 rounded-lg shadow">
+            <h3 class="font-bold mb-2">Control por roles</h3>
+            <p>Accesos personalizados según el rol asignado en la plataforma.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="bg-gradient-to-r from-sky-500 to-purple-500  text-white py-12 text-center">
+      <h2 class="text-3xl font-bold mb-4">¡Comienza a gestionar tu ganado hoy!</h2>
+
+    </section>
+  </div>
 </template>
 
-<script setup>
-const iconos = [
-  { id: 1, nombre: 'Casa', icon: 'home', size: 48, color: '#3b82f6', categoria: 'Navegación' },
-  { id: 2, nombre: 'Usuario', icon: 'user-circle', size: 48, color: '#6366f1', categoria: 'Perfil' },
-  { id: 3, nombre: 'Configuración', icon: 'cog-8-tooth', size: 48, color: '#6b7280', categoria: 'Ajustes' },
-  { id: 4, nombre: 'Carrito', icon: 'shopping-bag', size: 48, color: '#10b981', categoria: 'E-commerce' },
-  { id: 5, nombre: 'Notificaciones', icon: 'bell', size: 48, color: '#f59e0b', categoria: 'Alertas' }
-]
+<script setup >
+definePageMeta({
+  layout: 'public'
+})
+
+
+// function definePageMeta(arg0: { layout: string; }) {
+//   throw new Error('Function not implemented.');
+// }
 </script>

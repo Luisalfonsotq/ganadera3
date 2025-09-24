@@ -5,12 +5,12 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between  items-center h-16">
         <!-- Logo -->
         <NuxtLink to="/" class="flex  space-x-2">
-          <span class="font-bold text-2xl text-primary-verde hover:text-black transition">HERDIX</span>
+          <span class="font-bold text-3xl text-green-800 font-serif hover:text-black transition">HERDIX</span>
         </NuxtLink>
 
         <!-- Links -->
         <nav class="md:flex space-x-2 flex justify-end gap-2 items-center">
-          <NuxtLink to="/nosotros" class="font-bold text-primary-verde hover:text-black">
+          <NuxtLink to="/nosotros" class="font-bold text-green-800 hover:text-black">
             Nosotros
           </NuxtLink>
 
@@ -33,13 +33,6 @@
     <main class="flex-1">
       <slot />
     </main>
-
-    <!-- Footer -->
-    <!-- <footer class="bg-primary-verde text-white font-bold py-6">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <p class="text-xl">&copy; {{ new Date().getFullYear() }} Herdix. Todos los derechos reservados.</p>
-      </div>
-    </footer> -->
 
     <footer class="bg-green-600 text-white">
     <div class="container mx-auto py-4 px-6 md:px-12 flex justify-center items-center">

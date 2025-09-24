@@ -10,5 +10,13 @@ export default defineNuxtConfig({
   
   // Devtools
   devtools: { enabled: false },
+
+  // RuntimeConfig para exponer variables de entorno
+  runtimeConfig: {
+    public: {
+      // Esta variable leerá NUXT_PUBLIC_API_BASE_URL del .env
+      apiBaseUrl: ''
+    }
+  }
   
 })

@@ -8,7 +8,12 @@ export default {
     './app.vue'
   ],
   theme: {
-    extend: {}
+    extend: {
+      backgroundImage: {
+        'interaccion': "url('/assets/img/interaccion.jpg')",
+        'fondoNosotros': "url('/assets/img/fondo_prueba.jpg')"
+      }
+    }
   },
   plugins: []
 }

@@ -1,6 +1,7 @@
 // composables/useApi.ts
 
 import type { UseFetchOptions } from 'nuxt/app';
+import { useFetch } from 'nuxt/app';
 
 export function useApi<T>(url: string | (() => string), opts: UseFetchOptions<T> = {}) {
   const defaults: UseFetchOptions<T> = {
