@@ -8,7 +8,7 @@ export const useFinca = () => {
 
   // Para traer las fincas del usuario
   const getMyFincas = async (userId) => {
-    const { data, error } = await useFetch(`${baseUrl}/by-user/${userId}`, {
+    const { data, error } = await useFetch(`${baseUrl}?propietario_id=${userId}`, {
       headers: { Authorization: `Bearer ${token.value}`}
     })
     return { data, error }
