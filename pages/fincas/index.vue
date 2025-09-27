@@ -46,7 +46,7 @@
 
 <script setup>
 definePageMeta({layout: 'profile-layout'})
-const { getMyFincas, deleteFinca } = useFinca()
+const { getAllFincas, deleteFinca } = useFinca()
 const { user } = useAuth()
 const fincas = ref([])
 const loading = ref(false)
@@ -61,8 +61,8 @@ const loadFincas = async () => {
   }
   loading.value = true
   errorMsg.value = ''
-  console.log('Loading fincas for user id:', userId)
-  const { data, error } = await getMyFincas(userId)
+  console.log('Loading fincas for user id:', userId, 'rol:', user.value.rol)
+  const { data, error } = await getAllFincas(userId, user.value.rol)
   loading.value = false
   console.log('data:', data, 'error:', error)
   console.log('Fincas loaded:', data.value, 'error:', error.value)

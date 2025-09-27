@@ -7,8 +7,15 @@ export const useFinca = () => {
   const token = useCookie('access_token')
 
   // Para traer las fincas del usuario
-  const getMyFincas = async (userId) => {
-    const { data, error } = await useFetch(`${baseUrl}?propietario_id=${userId}`, {
+  const getAllFincas = async (userId, rol) => {
+    let url = baseUrl
+    if (rol === 'Administrador') {
+      url = `${baseUrl}?propietario_id=${userId}`
+    } else {
+      // Para otros roles, no traer fincas o usar otro endpoint
+      return { data: ref([]), error: ref(null) }
+    }
+    const { data, error } = await useFetch(url, {
       headers: { Authorization: `Bearer ${token.value}`}
     })
     return { data, error }
@@ -47,5 +54,5 @@ export const useFinca = () => {
     return { data, error }
   }
 
-  return { getMyFincas, getFincasById, createFinca, updateFinca, deleteFinca }
+  return { getAllFincas, getFincasById, createFinca, updateFinca, deleteFinca }
 }
