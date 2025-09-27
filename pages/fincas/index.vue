@@ -28,13 +28,13 @@
           <td class="py-2 px-4">{{ finca.propietario?.nombre || 'N/A' }}</td>
           <td class="py-2 px-4 flex gap-2">
             <NuxtLink :to="`/fincas/${finca.id}`" class="text-blue-500 hover:underline">
-              <Icon name="heroicons:eye" class="w-5 h-5" />
+              <Icon name="i-heroicons-eye" class="w-5 h-5" />
             </NuxtLink>
-            <NuxtLink v-if="user.value?.rol === 'Administrador'" :to="`/fincas/editar/${finca.id}`" class="text-yellow-500 hover:underline">
-              <Icon name="heroicons:pencil" class="w-5 h-5" />
+            <NuxtLink v-if="true" :to="`/fincas/editar/${finca.id}`" class="text-yellow-500 hover:underline">
+              <Icon name="i-heroicons-pencil" class="w-5 h-5" />
             </NuxtLink>
-            <button v-if="user.value?.rol === 'Administrador'" @click="handleDelete(finca.id)" class="text-red-500 hover:text-red-700">
-              <Icon name="heroicons:trash" class="w-5 h-5" />
+            <button v-if="true" @click="handleDelete(finca.id)" class="text-red-500 hover:text-red-700">
+              <Icon name="i-heroicons-trash" class="w-5 h-5" />
             </button>
           </td>
         </tr>
