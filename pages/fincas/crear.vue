@@ -29,6 +29,7 @@
 </template>
 
 <script setup>
+definePageMeta({layout: 'profile-layout'})
 const { createFinca } = useFinca()
 const { user } = useAuth()
 const router = useRouter()

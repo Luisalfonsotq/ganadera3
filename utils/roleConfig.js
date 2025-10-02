@@ -29,7 +29,7 @@ export const roleSidebarConfig = {
       subItems: [
         { name: 'Mis Fincas', path: '/fincas', key: 'my-farms' },
         { name: 'Gestionar Finca Actual', path: '/fincas/gestionar', key: 'manage-current-farm' },
-        { name: 'Potreros', path: '/fincas/potreros', key: 'paddocks' },
+        { name: 'Potreros', path: '/potreros', key: 'paddocks' },
       ]
     },
     {
