@@ -46,8 +46,8 @@
 
 <script setup>
 definePageMeta({layout: 'profile-layout'})
-const { getAllFincas, deleteFinca } = useFinca()
 const { user } = useAuth()
+const { getAllFincas, deleteFinca } = useFinca()
 const fincas = ref([])
 const loading = ref(false)
 const errorMsg = ref('')

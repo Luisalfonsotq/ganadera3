@@ -86,10 +86,21 @@ export const useAuth = () => {
     }
   };
 
+  const profile = async () => {
+    try{
+      const profile = await fetchWithCredentials<ProfileResponse>(`${runtimeConfig.public.apiBaseUrl}/auth/profile`);
+    user.value = profile;
+  
+    } catch (error){
+      console.error('Error al buscar el perfil:', error)
+    }
+  }
+
   return {
     user,
     register,
     login,
-    logout
+    logout, 
+    profile
   };
 };

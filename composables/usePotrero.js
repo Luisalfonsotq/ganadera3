@@ -12,9 +12,8 @@ export const usePotrero = () => {
   const error = ref(null)
 
   // Get: obtener los potreros
-  const getPotrerosOfFincas = async (fincaId) => {
-    let url = fincaId ? `${baseUrl}?finca_id=${fincaId}` : baseUrl;
-    // let url = fincaId ? `${baseUrl}/by-finca/${fincaId}` : baseUrl;
+  const getPotrerosOfFinca = async (fincaId) => {
+    let url = fincaId ? `${baseUrl}/by-finca/${fincaId}` : baseUrl;
     loading.value = true;
     error.value = null;
     const { data, error: fetchError } = await useFetch(url, {
@@ -24,11 +23,11 @@ export const usePotrero = () => {
       error.value = 'No se pudo obtener la lista de potreros.';
       console.error('Error fetching potreros:', fetchError.value);
     } else {
-      potreros.value = data.value || [];
+      potreros.value = Array.isArray(data.value)? data.value:[];
       console.log('Fetched potreros:', potreros.value)
     }
     loading.value = false;
-    return {data, error: fetchError}
+    return {data, error: fetchError};
   };
 
   // GetById: obtener potreros por id
@@ -136,7 +135,7 @@ export const usePotrero = () => {
     potrero,
     loading,
     error,
-    getPotrerosOfFincas,
+    getPotrerosOfFinca,
     getPotreroById,
     createPotrero,
     updatePotrero,

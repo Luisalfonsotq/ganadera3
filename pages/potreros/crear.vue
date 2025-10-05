@@ -82,7 +82,7 @@ const loading = ref(false);
 const errorMsg = ref('');
 const isSubmitting = ref(false);
 const success = ref(null);
-const errorFincas = ref(null);
+// const errorFincas = ref(null);
 const potreroError = ref(null);
 
 // FUNCIÓN PARA CARGAR FINCAS (SELECT)
