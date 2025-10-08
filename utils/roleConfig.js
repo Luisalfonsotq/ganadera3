@@ -15,7 +15,7 @@ export const roleSidebarConfig = {
       path: '/ganado',
       key: 'cattle',
       subItems: [
-        { name: 'Listado de Animales', path: '/ganado/animales', key: 'animal-list' },
+        { name: 'Listado de Animales', path: '/animales', key: 'animal-list' },
         { name: 'Control Sanitario', path: '/ganado/sanitario', key: 'sanitary-control' },
         { name: 'Eventos', path: '/ganado/eventos', key: 'events' },
         { name: 'Reproducción', path: '/ganado/reproduccion', key: 'reproduction' },
@@ -236,7 +236,7 @@ export const roleSidebarConfig = {
 export const btnCrear = {
   Administrador: [
     { name: 'Crear Nueva Finca', icon: 'i-heroicons-building-office', path: '/fincas/crear' },
-    { name: 'Registrar Nuevo Animal', icon: 'i-heroicons-plus-circle', path: '/ganado/crear' },
+    { name: 'Registrar Nuevo Animal', icon: 'i-heroicons-plus-circle', path: '/animales/crear' },
     { name: 'Crear Usuario', icon: 'i-heroicons-user-plus', path: '/usuarios/crear' },
     { name: 'Crear Potrero', icon: 'i-heroicons-map', path: '/potreros/crear' },
     { name: 'Asignar Tarea', icon: 'i-heroicons-clipboard-document', path: '/tareas/crear' },
