@@ -35,10 +35,10 @@
 
 <script setup>
 definePageMeta({layout: 'profile-layout'})
-import { ref, onMounted } from 'vue'
-import { usePotrero } from '~/composables/usePotrero'
-import { useAuth } from '~/composables/useAuth'
-import { useRoute, useRouter } from 'vue-router'
+// import { ref, onMounted } from 'vue'
+// import { usePotrero } from '~/composables/usePotrero'
+// import { useAuth } from '~/composables/useAuth'
+// import { useRoute, useRouter } from 'vue-router'
 
 const { getPotreroById, updatePotrero } = usePotrero()
 const { user } = useAuth()
@@ -71,7 +71,7 @@ const handleSubmit = async () => {
   submitting.value = true
   const { data, error } = await updatePotrero(form.value.id, form.value)
   submitting.value = false
-  if (data.value) {
+  if (data) {
     router.push('/potreros')
   } else {
     alert('Error al actualizar potrero: ' + error.value.message)

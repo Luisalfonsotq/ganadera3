@@ -54,10 +54,10 @@
 
 <script setup>
 definePageMeta({layout: 'profile-layout'})
-import { ref, onMounted } from 'vue'
-import { usePotrero } from '~/composables/usePotrero'
-import { useAuth } from '~/composables/useAuth'
-import { useRoute, useRouter } from 'vue-router'
+// import { ref, onMounted } from 'vue'
+// import { usePotrero } from '~/composables/usePotrero'
+// import { useAuth } from '~/composables/useAuth'
+// import { useRoute, useRouter } from 'vue-router'
 
 const { getPotreroById, deletePotrero } = usePotrero()
 const { user } = useAuth()
