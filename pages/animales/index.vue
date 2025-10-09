@@ -66,7 +66,7 @@
 
 <script setup>
 definePageMeta({ layout: 'profile-layout' })
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 import { useAuth } from '~/composables/useAuth'
 import { useFinca } from '~/composables/useFinca'
 import { useAnimal } from '~/composables/useAnimal'
@@ -90,11 +90,9 @@ const loadFincas = async () => {
   const { data, error } = await getAllFincas(userId, user.value.rol)
   loadingFincas.value = false
 
-  if (data.value) {
+  if (data.value && data.value.length > 0) {
     fincas.value = data.value
-    if (fincas.value.length > 0) {
-      await getAnimalesOfFinca(fincas.value[0].id)
-    }
+    await getAnimalesOfFinca(fincas.value[0].id)
   } else if (error.value) {
     errorMsg.value = 'Error al cargar las fincas: ' + error.value.message
   }

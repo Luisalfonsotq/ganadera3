@@ -13,7 +13,12 @@ export const useAnimal = () => {
 
   // Get: obtener animales
   const getAnimalesOfFinca = async (fincaId) => {
-    let url = fincaId ? `${baseUrl}/finca/${fincaId}` : baseUrl
+    if (!fincaId) {
+      error.value = 'Se requiere un ID de finca válido.'
+      loading.value = false
+      return { data: null, error: error.value }
+    }
+    const url = `${baseUrl}/finca/${fincaId}`
     loading.value = true
     error.value = null
     const { data, error: fetchError } = await useFetch(url, {
