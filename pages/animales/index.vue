@@ -20,7 +20,7 @@
         <thead>
           <tr class="bg-green-100">
             <th class="py-2 px-4 text-left">ID</th>
-            <th class="py-2 px-4 text-left">Arete</th>
+            <th class="py-2 px-4 text-left">Arete/Identificador</th>
             <th class="py-2 px-4 text-left">Raza</th>
             <th class="py-2 px-4 text-left">Sexo</th>
             <th class="py-2 px-4 text-left">Finca</th>
@@ -32,7 +32,7 @@
         <tbody>
           <tr v-for="animal in animales" :key="animal.id" class="hover:bg-gray-50 transition duration-150">
             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ animal.id }}</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ animal.arete_unico }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ animal.identificador_unico }}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ animal.raza || 'N/A' }}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ animal.sexo }}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
