@@ -69,7 +69,11 @@ export const useAnimal = () => {
       error.value = 'Error al crear el animal.'
       console.error('Error creating animal:', fetchError.value)
       loading.value = false
-      return null
+      // Lanzar error con más detalles 
+      const errorObj = new Error(fetchError.value.data?.message || fetchError.value.message || 'Error desconocido')
+      errorObj.statusCode = fetchError.value.statusCode
+      errorObj.data = fetchError.value.data
+      throw errorObj
     } else {
       if (newAnimal.value) {
         animales.value.push(newAnimal.value)

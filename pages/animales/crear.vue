@@ -582,14 +582,17 @@ const handleCrearAnimal = async () => {
       animalError.value = 'Error al crear el animal.'
     }
   } catch (err) {
+    console.error('Error con más detalles:', err)
     // Manejo específico de errores de duplicado
-    if (err.message?.includes('duplicate') || err.message?.includes('Duplicate') || 
-        err.statusCode === 409 || err.response?.status === 409) {
+    const errorMessage = err.message || err.data?.message || ''
+    const isDuplicateError = errorMessage.toLowerCase().includes('duplicate') || errorMessage.toLowerCase().includes('duplicado') || err.statusCode === 409 || err.data?.statusCode === 409
+
+    if (isDuplicateError) {
       animalError.value = `El identificador único "${form.value.identificador_unico}" ya está en uso. Por favor, usa otro identificador.`
     } else if (err.data?.message) {
       animalError.value = err.data.message
     } else {
-      animalError.value = err.message || 'Error al crear el animal.'
+      animalError.value = errorMessage || 'Error al crear el animal.'
     }
     console.error('Error en la creación del animal:', err)
   } finally {
