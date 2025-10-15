@@ -140,11 +140,13 @@
     </header>
 
     <!-- Main Content Area -->
-    <div class="flex flex-1">
+    <div class="h-full flex flex-1 relative overflow-auto">
       <!-- Left Sidebar (Desktop and Mobile) -->
       <aside
-        class="bg-white w-64 p-6 shadow-lg lg:block fixed inset-y-0 left-0 z-20 transform transition-transform duration-300 ease-in-out"
-        :class="isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'">
+        class="bg-white w-64 p-6 shadow-lg lg:block fixed inset-y-0 left-0 z-20 transform transition-transform duration-300 ease-in-out rounded-xl"
+        :class="isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
+        style="top:76px; height: calc(100vh - 76px);"
+        >
         <!-- Close button for mobile sidebar -->
         <button
           class="absolute top-4 right-4 p-2 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 lg:hidden"

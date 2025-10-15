@@ -92,10 +92,10 @@
 const isSidebarOpen = ref(false);
 </script> -->
 
-// layouts/default.vue
+<!-- layouts/default.vue -->
 <template>
   <div class="flex min-h-screen bg-white flex-col">
-    <header class="bg-primary-blanco shadow h-16 w-full flex items-center gap-4 px-4 justify-between">
+    <header class="bg-white shadow h-16 w-full flex items-center gap-4 px-4 justify-between">
       <button class="md:hidden px-2 py-1" v-on:click="isSidebarOpen = !isSidebarOpen">
         <i-tabler-menu-2 class="w-8 h-8 text-primary-verde hover:text-black transition" />
       </button>

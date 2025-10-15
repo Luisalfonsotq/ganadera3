@@ -61,6 +61,13 @@
         </tbody>
       </table>
     </div>
+    <div class="flex justify-between items-center mb-6 mt-4">
+      <h1 class="text-3xl font-bold text-gray-800">Listado de crias</h1>
+      <NuxtLink to="/crias"
+        class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-200">
+        Ver crias
+      </NuxtLink>
+    </div>
   </div>
 </template>
 
