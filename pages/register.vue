@@ -47,6 +47,7 @@
       <div class="absolute inset-0 bg-gradient-to-r from-black to-green-600 transform -skew-y-6 scale-125"></div>
 
       <div class="z-10 text-center">
+        <img class="p-2 size-[300px]" src="../assets/img/herdixCompleto.svg" alt="logo">
         <h1 class="text-4xl font-bold mb-4 tracking-widest">¡BIENVENIDO!</h1>
         <h2 class="text-3xl font-bold mb-4 tracking-widest">Crea tu cuenta</h2>
         <p class="mt-4 text-lg max-w-sm text-gray-200">

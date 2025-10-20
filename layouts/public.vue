@@ -10,19 +10,19 @@
 
         <!-- Links -->
         <nav class="md:flex space-x-2 flex justify-end gap-2 items-center">
-          <NuxtLink to="/nosotros" class="font-bold text-green-800 hover:text-black">
+          <NuxtLink to="/nosotros" class="font-bold text-green-800 hover:underline decoration-green-900">
             Nosotros
           </NuxtLink>
 
           <!-- Botón Login -->
           <NuxtLink to="/login"
-            class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-3xl bg-green text-white-700 transition">
+            class="bg-gradient-to-t from-green-800 to-green-500 hover:from-green-900 hover:to-green-600 transition-all duration-300 text-white font-semibold py-2 px-4 rounded-3xl bg-green text-white-700">
             Iniciar sesión
           </NuxtLink>
 
           <!-- Botón registrarse -->
           <NuxtLink to="/register"
-            class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-3xl bg-green text-white-700 transition">
+            class="bg-gradient-to-t from-gray-500 to-gray-300 hover:from-gray-600 hover:to-gray-400 transition-all duration-300 text-black font-semibold py-2 px-4 rounded-3xl bg-green text-white-700">
             Crear cuenta
           </NuxtLink>
         </nav>

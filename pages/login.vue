@@ -19,6 +19,7 @@
       
       <div class="z-10 text-center">
         <!-- <h2 class="text-4xl font-light mb-4 tracking-wider">Es bueno verte de nuevo</h2> -->
+        <img class="p-2 size-[300px]" src="../assets/img/herdixCompleto.svg" alt="logo">
         <h1 class="text-4xl font-bold mb-4 tracking-widest">BIENVENIDO DE NUEVO</h1>
         <p class="mt-4 text-lg max-w-sm text-gray-200">
           De vuelta al campo, de vuelta al progreso.
