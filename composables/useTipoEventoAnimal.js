@@ -45,6 +45,88 @@ export const useTipoEventoAnimal = () => {
     return { data, error: fetchError }
   }
 
+  // POST: crear nuevo tipo de evento
+  const createTipoEvento = async (tipoEventoData) => {
+    loading.value = true
+    error.value = null
+    const { data: newTipoEvento, error: fetchError } = await useFetch(baseUrl, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(tipoEventoData),
+    })
+
+    if (fetchError.value) {
+      error.value = 'Error al crear el tipo de evento.'
+      console.error('Error creating tipo evento:', fetchError.value)
+      loading.value = false
+      const errorObj = new Error(fetchError.value.data?.message || fetchError.value.message || 'Error desconocido')
+      errorObj.statusCode = fetchError.value.statusCode
+      errorObj.data = fetchError.value.data
+      throw errorObj
+    } else {
+      if (newTipoEvento.value) {
+        tiposEvento.value.push(newTipoEvento.value)
+      }
+      loading.value = false
+      return newTipoEvento.value
+    }
+  }
+
+  // PATCH: actualizar tipo de evento
+  const updateTipoEvento = async (id, data) => {
+    loading.value = true
+    error.value = null
+    const { data: updated, error: fetchError } = await useFetch(`${baseUrl}/${id}`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+
+    if (fetchError.value) {
+      error.value = 'Error al actualizar el tipo de evento.'
+      console.error('Error updating tipo evento:', fetchError.value)
+    } else {
+      if (tipoEvento.value && tipoEvento.value.id === id && updated.value) {
+        tipoEvento.value = updated.value
+      }
+
+      const index = tiposEvento.value.findIndex(t => t.id === id)
+      if (index !== -1 && updated.value) {
+        tiposEvento.value[index] = updated.value
+      }
+    }
+    loading.value = false
+    return { data: updated.value, error: fetchError.value }
+  }
+
+  // DELETE: eliminar tipo de evento
+  const deleteTipoEvento = async (id) => {
+    loading.value = true
+    error.value = null
+    const { error: fetchError } = await useFetch(`${baseUrl}/${id}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token.value}` },
+    })
+
+    if (fetchError.value) {
+      error.value = 'Error al eliminar el tipo de evento.'
+      console.error('Error deleting tipo evento:', fetchError.value)
+    } else {
+      tiposEvento.value = tiposEvento.value.filter(t => t.id !== id)
+      if (tipoEvento.value && tipoEvento.value.id === id) {
+        tipoEvento.value = null
+      }
+    }
+    loading.value = false
+    return { error: fetchError }
+  }
+
   return {
     tiposEvento,
     tipoEvento,
@@ -52,5 +134,8 @@ export const useTipoEventoAnimal = () => {
     error,
     getAllTiposEvento,
     getTipoEventoById,
+    createTipoEvento,
+    updateTipoEvento,
+    deleteTipoEvento,
   }
 }

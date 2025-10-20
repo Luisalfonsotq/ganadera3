@@ -19,6 +19,7 @@ export const roleSidebarConfig = {
         { name: 'Listado de Proveedores', path: '/proveedores', key: 'proveedores-list' },
         { name: 'Control Sanitario', path: '/ganado/sanitario', key: 'sanitary-control' },
         { name: 'Eventos', path: '/eventos-animal', key: 'events' },
+        { name: 'Tipos de Eventos', path: '/tipos-evento-animal', key: 'events' },
         { name: 'Reproducción', path: '/reproducciones', key: 'reproduction' },
       ]
     },
