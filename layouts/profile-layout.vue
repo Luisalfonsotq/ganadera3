@@ -227,9 +227,11 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-green-800 text-white py-4 text-center text-sm mt-auto rounded-t-lg">
+    <!-- <footer class="bg-green-800 text-white py-4 text-center text-sm mt-auto rounded-t-lg">
       <p>HERDIX todos los derechos reservados. 2025.</p>
-    </footer>
+    </footer> -->
+
+    <Footer/>
   </div>
 </template>
 
@@ -239,6 +241,7 @@ import { useAuth } from '@/composables/useAuth'
 import { useRouter } from 'vue-router'
 import { roleSidebarConfig, btnCrear, roleNotifications } from '@/utils/roleConfig'
 import { $fetch } from 'ofetch'
+import Footer from '@/components/Footer.vue'
 
 const { user, logout } = useAuth()
 const router = useRouter()

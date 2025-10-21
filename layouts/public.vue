@@ -33,42 +33,11 @@
     <main class="flex-1">
       <slot />
     </main>
-
-    <footer class="bg-green-600 text-white">
-    <div class="container mx-auto py-4 px-6 md:px-12 flex justify-center items-center">
-        <ul class="flex space-x-8 text-sm md:text-base font-medium">
-            <li><a href="#" class="hover:underline">HOME</a></li>
-            <li><a href="#" class="hover:underline">ABOUT US</a></li>
-            <li><a href="#" class="hover:underline">PRICING</a></li>
-            <li><a href="#" class="hover:underline">TESTIMONIALS</a></li>
-            <li><a href="#" class="hover:underline">BLOG</a></li>
-            <li><a href="#" class="hover:underline">CONTACT</a></li>
-        </ul>
-    </div>
-
-    <div class="bg-black text-white py-4 px-6 md:px-12">
-        <div class="container mx-auto flex flex-col md:flex-row items-center text-xs md:text-sm text-gray-400 justify-center">
-            <div class="text-center md:text-left mb-2 md:mb-0">
-                <p>&copy; Todos los derechos reservados - HERDIX </p>
-                <div class="mt-1 space-x-4">
-                    <a href="#" class="hover:underline">Legal notice</a>
-                    <span>|</span>
-                    <a href="#" class="hover:underline">Privacy Policy</a>
-                    <span>|</span>
-                    <a href="#" class="hover:underline">Cookies Policy</a>
-                </div>
-            </div>
-            
-            <div class="flex space-x-4">
-                <a href="#" aria-label="Facebook" class="hover:text-white">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="#" aria-label="LinkedIn" class="hover:text-white">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-</footer>
+    
+    <!-- Footer -->
+    <Footer/>
   </div>
 </template>
+<script setup>
+import Footer from '~/components/Footer.vue';
+</script>
