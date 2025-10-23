@@ -16,13 +16,13 @@
 
           <!-- Botón Login -->
           <NuxtLink to="/login"
-            class="bg-gradient-to-t from-green-800 to-green-500 hover:from-green-900 hover:to-green-600 transition-all duration-300 text-white font-semibold py-2 px-4 rounded-3xl bg-green text-white-700">
+            class="bg-gradient-to-t from-black to-green-500 hover:from-black hover:to-green-600 transition-all duration-300 text-white font-semibold py-2 px-4 rounded-3xl bg-green text-white-700">
             Iniciar sesión
           </NuxtLink>
 
           <!-- Botón registrarse -->
           <NuxtLink to="/register"
-            class="bg-gradient-to-t from-gray-500 to-gray-300 hover:from-gray-600 hover:to-gray-400 transition-all duration-300 text-black font-semibold py-2 px-4 rounded-3xl bg-green text-white-700">
+            class="bg-gradient-to-t from-black to-gray-300 hover:from-black hover:to-gray-400 transition-all duration-300 text-white font-semibold py-2 px-4 rounded-3xl bg-green text-white-700">
             Crear cuenta
           </NuxtLink>
         </nav>

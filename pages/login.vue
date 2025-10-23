@@ -1,24 +1,10 @@
-<!-- <template>
-  <div class="bg-fondoNosotros bg-cover aspect-video m-auto max-w-full min-h-screen flex items-center relative">
-    <div class="max-w-md mx-auto p-6 border rounded-xl bg-teal-500 absolute right-10">
-      <h1 class="text-2xl text-center text-white font-bold mb-4">Iniciar Sesión</h1>
-      <form @submit.prevent="login" class="flex-col gap-4">
-        <input v-model="email" type="email" placeholder="Email" class="border p-2 rounded-md w-full mb-2" />
-        <input v-model="password" type="password" placeholder="Contraseña" class="border p-2 rounded-md w-full mb-4" />
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Entrar</button>
-      </form>
-      <p v-if="error" class="text-red-500 mt-2">{{ error }}</p>
-    </div>
-  </div>
-</template> -->
-
+<!-- pages/login.vue -->
 <template>
   <div class="flex min-h-screen bg-white">
     <div class="hidden md:flex flex-col justify-center items-center w-1/2 p-8 text-white relative bg-blue-500 overflow-hidden rounded-xl">
-      <div class="absolute inset-0 bg-gradient-to-r from-green-600 to-black transform -skew-y-6 scale-125"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-green-600 to-black transform -skew-y-6 scale-125"></div>
       
-      <div class="z-10 text-center">
-        <!-- <h2 class="text-4xl font-light mb-4 tracking-wider">Es bueno verte de nuevo</h2> -->
+      <div class="z-10 text-center flex flex-col items-center">
         <img class="p-2 size-[300px]" src="../assets/img/herdixCompleto.svg" alt="logo">
         <h1 class="text-4xl font-bold mb-4 tracking-widest">BIENVENIDO DE NUEVO</h1>
         <p class="mt-4 text-lg max-w-sm text-gray-200">
@@ -48,7 +34,7 @@
             <a href="register" class="text-blue-500 hover:underline">Ya tienes cuenta?</a>
           </div>
           
-          <button type="submit" class="w-full bg-gradient-to-r from-green-600 to-black hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-full mt-6 transition-colors duration-300">
+          <button type="submit" class="w-full bg-gradient-to-t from-black to-green-500  hover:from-black hover:to-green-600 transition-all duration-300 text-white font-bold py-3 px-4 rounded-full mt-6">
             INICIAR SESIÓN
           </button>
         </form>

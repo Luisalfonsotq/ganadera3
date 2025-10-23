@@ -6,7 +6,7 @@ export const roleSidebarConfig = {
     {
       name: 'Dashboard',
       icon: 'i-heroicons-home',
-      path: '/dashboard',
+      path: '/profile',
       key: 'dashboard'
     },
     {
@@ -85,7 +85,7 @@ export const roleSidebarConfig = {
     {
       name: 'Dashboard',
       icon: 'i-heroicons-home',
-      path: '/dashboard',
+      path: '/profile',
       key: 'dashboard'
     },
     {

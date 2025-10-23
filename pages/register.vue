@@ -35,7 +35,7 @@
           </div>
 
           <button type="submit"
-            class="w-full bg-gradient-to-r from-black to-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-full mt-6 transition-colors duration-300">
+            class="w-full bg-gradient-to-t from-black to-green-500  hover:from-black hover:to-green-600 transition-all duration-300 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-full mt-6">
             REGISTRARSE
           </button>
         </form>
@@ -44,9 +44,9 @@
     </div>
     <div
       class="hidden md:flex flex-col justify-center items-center w-1/2 p-8 text-white relative bg-blue-500 overflow-hidden rounded-xl">
-      <div class="absolute inset-0 bg-gradient-to-r from-black to-green-600 transform -skew-y-6 scale-125"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black to-green-600 transform -skew-y-6 scale-125"></div>
 
-      <div class="z-10 text-center">
+      <div class="z-10 text-center flex flex-col items-center">
         <img class="p-2 size-[300px]" src="../assets/img/herdixCompleto.svg" alt="logo">
         <h1 class="text-4xl font-bold mb-4 tracking-widest">¡BIENVENIDO!</h1>
         <h2 class="text-3xl font-bold mb-4 tracking-widest">Crea tu cuenta</h2>
