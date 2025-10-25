@@ -69,7 +69,6 @@ export const useAnimal = () => {
       error.value = 'Error al crear el animal.'
       console.error('Error creating animal:', fetchError.value)
       loading.value = false
-      // Lanzar error con más detalles 
       const errorObj = new Error(fetchError.value.data?.message || fetchError.value.message || 'Error desconocido')
       errorObj.statusCode = fetchError.value.statusCode
       errorObj.data = fetchError.value.data
@@ -135,6 +134,57 @@ export const useAnimal = () => {
     return { error: fetchError }
   }
 
+  // NUEVOS MÉTODOS
+
+  // Obtener animales con alertas sanitarias
+  const getAlertasSanitarias = async (fincaId) => {
+    loading.value = true
+    error.value = null
+    const url = fincaId ? `${baseUrl}/alertas-sanitarias?finca_id=${fincaId}` : `${baseUrl}/alertas-sanitarias`
+    const { data, error: fetchError } = await useFetch(url, {
+      headers: { Authorization: `Bearer ${token.value}` }
+    })
+    loading.value = false
+    if (fetchError.value) {
+      error.value = 'Error al obtener alertas sanitarias'
+      console.error('Error fetching alertas:', fetchError.value)
+    }
+    return { data, error: fetchError }
+  }
+
+  // Obtener animales próximos a parir
+  const getProximosPartos = async (dias = 30, fincaId) => {
+    loading.value = true
+    error.value = null
+    let url = `${baseUrl}/proximos-partos?dias=${dias}`
+    if (fincaId) url += `&finca_id=${fincaId}`
+    const { data, error: fetchError } = await useFetch(url, {
+      headers: { Authorization: `Bearer ${token.value}` }
+    })
+    loading.value = false
+    if (fetchError.value) {
+      error.value = 'Error al obtener próximos partos'
+      console.error('Error fetching partos:', fetchError.value)
+    }
+    return { data, error: fetchError }
+  }
+
+  // Obtener estadísticas de etapas de vida
+  const getEstadisticasEtapas = async (fincaId) => {
+    loading.value = true
+    error.value = null
+    const url = fincaId ? `${baseUrl}/estadisticas/etapas-vida?finca_id=${fincaId}` : `${baseUrl}/estadisticas/etapas-vida`
+    const { data, error: fetchError } = await useFetch(url, {
+      headers: { Authorization: `Bearer ${token.value}` }
+    })
+    loading.value = false
+    if (fetchError.value) {
+      error.value = 'Error al obtener estadísticas'
+      console.error('Error fetching stats:', fetchError.value)
+    }
+    return { data, error: fetchError }
+  }
+
   return {
     animales,
     animal,
@@ -145,5 +195,8 @@ export const useAnimal = () => {
     createAnimal,
     updateAnimal,
     deleteAnimal,
+    getAlertasSanitarias,
+    getProximosPartos,
+    getEstadisticasEtapas,
   }
 }
