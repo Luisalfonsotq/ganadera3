@@ -2,12 +2,11 @@
 <template>
   <div class="min-h-screen bg-gradient-to-b from-green-50 to-white">
     <!-- Hero Section con Hero Image Responsivo -->
-    <div class="relative w-full min-h-[500px] md:min-h-[600px] lg:min-h-[700px] bg-cover bg-center overflow-hidden" 
-         style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1500595046743-cd271d694d30?q=80&w=2074');">
+    <div class="bg-public1 relative w-full min-h-[400px] md:min-h-[500px] bg-cover bg-center overflow-hidden" >
       
       <!-- Logo y Hero Content - Totalmente Responsivo -->
       <div class="container mx-auto px-4 py-8 md:py-12 lg:py-16">
-        <div class="flex flex-col items-center md:items-start max-w-2xl mx-auto md:mx-0 md:ml-8 lg:ml-20">
+        <div class="flex flex-col items-center justify-center md:items-center max-w-2xl mx-auto md:mx-0 md:ml-8 lg:ml-20">
           <!-- Logo Responsivo -->
           <div class="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-4 md:p-6 lg:p-8 mb-4 md:mb-6 w-full max-w-sm transform hover:scale-105 transition-all duration-300">
             <img class="w-full h-auto" src="../assets/img/HERDIX.svg" alt="HERDIX Logo">

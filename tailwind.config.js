@@ -11,7 +11,8 @@ export default {
     extend: {
       backgroundImage: {
         'interaccion': "url('/assets/img/interaccion.jpg')",
-        'fondoNosotros': "url('/assets/img/fondo_prueba.jpg')"
+        'fondoNosotros': "url('/assets/img/fondo_prueba.jpg')",
+        'public1': "url('/assets/img/index1.jfif')"
       }
     }
   },
