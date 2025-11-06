@@ -255,7 +255,7 @@ async function login() {
 
         <!-- Info adicional -->
         <div class="mt-6 text-center text-sm text-gray-500">
-          <p>© 2024 HERDIX - Desarrollado por SENA</p>
+          <p>© HERDIX</p>
         </div>
       </div>
     </div>
