@@ -469,7 +469,7 @@ const handleCrearPotrero = async () => {
       }
 
       setTimeout(() => {
-        router.push('/potreros');
+        router.push('/fincas');
       }, 1500);
     } else {
       potreroError.value = 'Error al crear el potrero.';

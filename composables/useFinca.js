@@ -1,29 +1,31 @@
 // composables/useFinca.js
-import { useFetch, useCookie} from '#app'
-
 export const useFinca = () => {
   const { public: { apiBaseUrl } } = useRuntimeConfig()
   const baseUrl = `${apiBaseUrl}/fincas`
-  const token = useCookie('access_token')
 
-  // Para traer las fincas del usuario
   const getAllFincas = async (userId, rol) => {
     let url = baseUrl
     if (rol === 'Administrador') {
       url = `${baseUrl}?propietario_id=${userId}`
     } else {
-      // Para otros roles, no traer fincas o usar otro endpoint
       return { data: ref([]), error: ref(null) }
     }
+    
     const { data, error } = await useFetch(url, {
-      headers: { Authorization: `Bearer ${token.value}`}
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      }
     })
     return { data, error }
   }
 
   const getFincasById = async (id) => {
     const { data, error } = await useFetch(`${baseUrl}/${id}`, {
-      headers: { Authorization: `Bearer ${token.value}`}
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      }
     })
     return { data, error }
   }
@@ -31,7 +33,10 @@ export const useFinca = () => {
   const createFinca = async (fincaData) => {
     const { data, error } = await useFetch(baseUrl, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token.value}`},
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: fincaData
     })
     return { data, error }
@@ -40,7 +45,10 @@ export const useFinca = () => {
   const updateFinca = async (id, fincaData) => {
     const { data, error } = await useFetch(`${baseUrl}/${id}`, {
       method: 'PATCH',
-      headers: { Authorization: `Bearer ${token.value}`},
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: fincaData
     })
     return { data, error }
@@ -49,7 +57,10 @@ export const useFinca = () => {
   const deleteFinca = async (id) => {
     const { data, error } = await useFetch(`${baseUrl}/${id}`, {
       method: 'DELETE',
-      headers: { Authorization: `Bearer ${token.value}`}
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      }
     })
     return { data, error }
   }
