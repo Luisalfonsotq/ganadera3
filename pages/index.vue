@@ -2,29 +2,29 @@
 <template>
   <div class="min-h-screen bg-gradient-to-b  from-green-50 to-white">
     <!-- Hero Section con Hero Image Responsivo -->
-    <div class="bg-interaccion relative w-full max-h-screen bg-cover aspect-video bg-center overflow-hidden">
+    <div class="bg-index1 relative w-full max-h-screen bg-cover aspect-video bg-center overflow-hidden">
 
       <!-- Logo y Hero Content - Totalmente Responsivo -->
       <div class="container mx-auto px-4 py-4 md:py-8 lg:py-12">
         <div class="flex flex-col items-center justify-center md:items-center max-w-2xl mx-auto">
           <!-- Logo Responsivo -->
-          <!-- <div
+          <div
             class="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-4 md:p-6 lg:p-8 mb-4 md:mb-6 w-full max-w-sm transform hover:scale-105 transition-all duration-300">
             <img class="w-full h-auto" src="../assets/img/HERDIX.svg" alt="HERDIX Logo">
-          </div> -->
+          </div>
 
           <!-- Hero Text con gradiente verde -->
-          <!-- <div
+          <div
             class="bg-gradient-to-br from-green-700 via-green-600 to-green-800 rounded-3xl rounded-tl-[20%] rounded-br-[20%] p-6 md:p-8 lg:p-10 shadow-2xl transform hover:shadow-green-500/50 transition-all duration-300 w-full max-w-sm md:max-w-md">
             <p class="text-center md:text-left text-xl md:text-2xl lg:text-3xl text-white font-bold leading-relaxed">
               ¡Transforma tu finca con tecnología inteligente y lleva tu ganadería al siguiente nivel!
             </p>
-            <div class="mt-6 flex justify-center md:justify-start">
+            <!-- <div class="mt-6 flex justify-center md:justify-start">
               <button class="bg-white text-green-700 px-6 py-3 rounded-full font-bold hover:bg-green-50 transform hover:scale-105 transition-all duration-300 shadow-lg">
                 Comenzar Ahora
               </button>
-            </div> 
-          </div> -->
+            </div>  -->
+          </div>
         </div>
       </div>
 

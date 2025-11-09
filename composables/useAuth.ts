@@ -1,4 +1,110 @@
 
+// // composables/useAuth.ts
+// import { navigateTo } from '#app';
+// import { useState, useRuntimeConfig } from '#imports';
+
+// interface UserCredentials {
+//   nombre?: string;
+//   email: string;
+//   password?: string;
+//   rol?: string;
+// }
+
+// interface AuthUser {
+//   nombre: string;
+//   email: string;
+//   rol: string;
+// }
+
+// interface AuthResponse {
+//   access_token: string;
+//   user: AuthUser;
+// }
+
+// interface LoginResponse {
+//   user: AuthUser;
+// }
+
+// interface ProfileResponse {
+//   id: number;
+//   nombre: string;
+//   email: string;
+//   rol: string;
+// }
+
+// export const useAuth = () => {
+//   const runtimeConfig = useRuntimeConfig();
+//   const user = useState<ProfileResponse | null>('user');
+
+//   const fetchWithCredentials = async <T>(url: string, options: any = {}): Promise<T> => {
+//     return $fetch<T>(url, {
+//       ...options,
+//       credentials: 'include',
+//     });
+//   };
+
+//   const register = async (credentials: UserCredentials): Promise<AuthResponse> => {
+//     const response = await fetchWithCredentials<AuthResponse>(`${runtimeConfig.public.apiBaseUrl}/auth/register`, {
+//       method: 'POST',
+//       body: credentials,
+//     });
+
+//     if (!response) {
+//       throw new Error('Error en el servidor');
+//     }
+//     // id se obtendrá después de profile
+//     user.value = null; // Temporal hasta profile
+//     return response;
+//   };
+
+//   const login = async (credentials: UserCredentials): Promise<AuthUser> => {
+//     const response = await fetchWithCredentials<LoginResponse>(`${runtimeConfig.public.apiBaseUrl}/auth/login`, {
+//       method: 'POST',
+//       body: credentials,
+//     });
+
+//     if (!response || !response.user) {
+//       throw new Error('Error en el servidor o usuario no retornado');
+//     }
+//     // Obtener el perfil después del login para incluir id
+//     const profile = await fetchWithCredentials<ProfileResponse>(`${runtimeConfig.public.apiBaseUrl}/auth/profile`);
+//     user.value = profile;
+//     return response.user;
+//   };
+
+//   const logout = async () => {
+//     try {
+//       await fetchWithCredentials(`${runtimeConfig.public.apiBaseUrl}/auth/logout`, {
+//         method: 'POST',
+//       });
+//       user.value = null;
+//       await navigateTo('/login');
+//     } catch (error) {
+//       console.error('Error al cerrar sesión:', error);
+//       user.value = null;
+//       await navigateTo('/login');
+//     }
+//   };
+
+//   const profile = async () => {
+//     try{
+//       const profile = await fetchWithCredentials<ProfileResponse>(`${runtimeConfig.public.apiBaseUrl}/auth/profile`);
+//     user.value = profile;
+  
+//     } catch (error){
+//       console.error('Error al buscar el perfil:', error)
+//     }
+//   }
+
+//   return {
+//     user,
+//     register,
+//     login,
+//     logout, 
+//     profile
+//   };
+// };
+
 // composables/useAuth.ts
 import { navigateTo } from '#app';
 import { useState, useRuntimeConfig } from '#imports';
@@ -11,6 +117,7 @@ interface UserCredentials {
 }
 
 interface AuthUser {
+  id: number;      // ✅ Ahora consistente con backend
   nombre: string;
   email: string;
   rol: string;
@@ -25,16 +132,9 @@ interface LoginResponse {
   user: AuthUser;
 }
 
-interface ProfileResponse {
-  id: number;
-  nombre: string;
-  email: string;
-  rol: string;
-}
-
 export const useAuth = () => {
   const runtimeConfig = useRuntimeConfig();
-  const user = useState<ProfileResponse | null>('user');
+  const user = useState<AuthUser | null>('user', () => null); // ✅ Inicializado en null
 
   const fetchWithCredentials = async <T>(url: string, options: any = {}): Promise<T> => {
     return $fetch<T>(url, {
@@ -52,8 +152,9 @@ export const useAuth = () => {
     if (!response) {
       throw new Error('Error en el servidor');
     }
-    // id se obtendrá después de profile
-    user.value = null; // Temporal hasta profile
+    
+    // ✅ No establecer user aquí porque el registro ahora crea usuarios PENDING
+    // El login posterior establecerá el user
     return response;
   };
 
@@ -66,9 +167,9 @@ export const useAuth = () => {
     if (!response || !response.user) {
       throw new Error('Error en el servidor o usuario no retornado');
     }
-    // Obtener el perfil después del login para incluir id
-    const profile = await fetchWithCredentials<ProfileResponse>(`${runtimeConfig.public.apiBaseUrl}/auth/profile`);
-    user.value = profile;
+    
+    // ✅ Obtener perfil completo después del login
+    await profile();
     return response.user;
   };
 
@@ -87,14 +188,25 @@ export const useAuth = () => {
   };
 
   const profile = async () => {
-    try{
-      const profile = await fetchWithCredentials<ProfileResponse>(`${runtimeConfig.public.apiBaseUrl}/auth/profile`);
-    user.value = profile;
-  
-    } catch (error){
-      console.error('Error al buscar el perfil:', error)
+    try {
+      const profileData = await fetchWithCredentials<AuthUser>(`${runtimeConfig.public.apiBaseUrl}/auth/profile`);
+      
+      // ✅ Validar que el objeto tenga la estructura correcta
+      if (profileData && profileData.id && profileData.rol) {
+        user.value = profileData;
+        console.log('✅ Profile loaded:', profileData);
+      } else {
+        console.error('❌ Invalid profile structure:', profileData);
+        user.value = null;
+      }
+      
+      return profileData;
+    } catch (error) {
+      console.error('❌ Error al buscar el perfil:', error);
+      user.value = null;
+      throw error;
     }
-  }
+  };
 
   return {
     user,

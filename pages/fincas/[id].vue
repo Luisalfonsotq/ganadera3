@@ -109,8 +109,17 @@
 
           <!-- Actions Buttons -->
           <div class="mt-6 pt-6 border-t border-gray-200 flex flex-wrap gap-3">
+            <!-- ✅ NUEVO: Botón Invitar -->
             <NuxtLink 
-              v-if="user.value?.rol === 'Administrador'" 
+              v-if="user?.rol === 'Administrador'" 
+              :to="`/fincas/${finca.id}-invitar`" 
+              class="inline-flex items-center bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 font-medium">
+              <Icon name="heroicons:user-plus" class="w-5 h-5 mr-2" /> 
+              Invitar Colaborador
+            </NuxtLink>
+
+            <NuxtLink 
+              v-if="user?.rol === 'Administrador'" 
               :to="`/fincas/editar/${finca.id}`" 
               class="inline-flex items-center bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 font-medium">
               <Icon name="heroicons:pencil" class="w-5 h-5 mr-2" /> 
@@ -118,7 +127,7 @@
             </NuxtLink>
             
             <button 
-              v-if="user.value?.rol === 'Administrador'" 
+              v-if="user?.rol === 'Administrador'" 
               @click="handleDelete" 
               class="inline-flex items-center bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 font-medium">
               <Icon name="heroicons:trash" class="w-5 h-5 mr-2" /> 
@@ -262,7 +271,6 @@ onMounted(async () => {
     
     if (data?.value) {
       finca.value = data.value
-      // Cargar potreros de esta finca
       await loadPotreros(id)
     } else if (error?.value) {
       errorMsg.value = 'Error al cargar finca: ' + error.value.message
