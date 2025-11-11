@@ -78,22 +78,76 @@
                 <input 
                   id="password"
                   v-model="password" 
-                  type="password" 
+                  :type="showPassword ? 'text' : 'password'"
                   placeholder="Mínimo 6 caracteres"
                   required
                   minlength="6"
-                  class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-green-600 focus:ring-2 focus:ring-green-200 transition-all duration-300 text-gray-700"
+                  class="w-full pl-12 pr-12 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-green-600 focus:ring-2 focus:ring-green-200 transition-all duration-300 text-gray-700"
                 />
+                <button
+                  type="button"
+                  @click="showPassword = !showPassword"
+                  class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600 transition-colors duration-300">
+                  <svg v-if="!showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                  </svg>
+                  <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
+                  </svg>
+                </button>
               </div>
               <p class="mt-1 text-xs text-gray-500">Debe tener al menos 6 caracteres</p>
             </div>
 
-            <!-- ❌ CAMPO ROL ELIMINADO -->
+            <!-- Confirmar Password -->
+            <div class="relative group">
+              <label for="confirmPassword" class="block text-sm font-semibold text-gray-700 mb-2">
+                Confirmar Contraseña
+              </label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <svg class="w-5 h-5 text-gray-400 group-focus-within:text-green-600 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                </div>
+                <input 
+                  id="confirmPassword"
+                  v-model="confirmPassword" 
+                  :type="showConfirmPassword ? 'text' : 'password'"
+                  placeholder="Repite tu contraseña"
+                  required
+                  minlength="6"
+                  :class="[
+                    'w-full pl-12 pr-12 py-3 border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-700',
+                    passwordsMatch ? 'border-green-300 focus:border-green-600 focus:ring-2 focus:ring-green-200' : 
+                    confirmPassword.length > 0 ? 'border-red-300 focus:border-red-600 focus:ring-2 focus:ring-red-200' : 
+                    'border-gray-200 focus:border-green-600 focus:ring-2 focus:ring-green-200'
+                  ]"
+                />
+                <button
+                  type="button"
+                  @click="showConfirmPassword = !showConfirmPassword"
+                  class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600 transition-colors duration-300">
+                  <svg v-if="!showConfirmPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                  </svg>
+                  <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
+                  </svg>
+                </button>
+              </div>
+              <p v-if="confirmPassword.length > 0" class="mt-1 text-xs" :class="passwordsMatch ? 'text-green-600' : 'text-red-600'">
+                <span v-if="passwordsMatch">✓ Las contraseñas coinciden</span>
+                <span v-else>✗ Las contraseñas no coinciden</span>
+              </p>
+            </div>
 
             <!-- Botón Submit -->
             <button 
               type="submit"
-              :disabled="isLoading"
+              :disabled="isLoading || !passwordsMatch || password.length < 6"
               class="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group mt-6">
               <span class="relative z-10 flex items-center justify-center gap-2">
                 <span v-if="!isLoading">CREAR CUENTA</span>
@@ -240,7 +294,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useAuth } from '~/composables/useAuth';
 import { useRouter } from 'vue-router';
 
@@ -249,23 +303,36 @@ definePageMeta({ layout: 'public' });
 const nombre = ref('');
 const email = ref('');
 const password = ref('');
+const confirmPassword = ref('');
+const showPassword = ref(false);
+const showConfirmPassword = ref(false);
 const error = ref('');
 const success = ref('');
 const isLoading = ref(false);
 const router = useRouter();
 const { register } = useAuth();
 
+const passwordsMatch = computed(() => {
+  if (confirmPassword.value.length === 0) return false;
+  return password.value === confirmPassword.value;
+});
+
 async function handleRegister() {
   error.value = '';
   success.value = '';
   
-  if (!nombre.value || !email.value || !password.value) {
+  if (!nombre.value || !email.value || !password.value || !confirmPassword.value) {
     error.value = 'Por favor, completa todos los campos';
     return;
   }
 
   if (password.value.length < 6) {
     error.value = 'La contraseña debe tener al menos 6 caracteres';
+    return;
+  }
+
+  if (!passwordsMatch.value) {
+    error.value = 'Las contraseñas no coinciden';
     return;
   }
 
@@ -276,12 +343,10 @@ async function handleRegister() {
       nombre: nombre.value,
       email: email.value,
       password: password.value,
-      // ❌ NO se envía 'rol' - el backend asigna PENDING automáticamente
     });
     
     success.value = '¡Cuenta creada! Tu solicitud está pendiente de aprobación.';
     
-    // Esperar 2 segundos antes de redirigir
     setTimeout(() => {
       router.push('/profile');
     }, 2000);
@@ -320,23 +385,5 @@ async function handleRegister() {
 
 .animate-slide-up {
   animation: slide-up 0.6s ease-out;
-}
-
-select:focus {
-  outline: none;
-}
-
-input, select, button {
-  transition: all 0.3s ease;
-}
-
-select::-ms-expand {
-  display: none;
-}
-
-@media (max-width: 640px) {
-  .animate-slide-up {
-    animation-duration: 0.4s;
-  }
 }
 </style>

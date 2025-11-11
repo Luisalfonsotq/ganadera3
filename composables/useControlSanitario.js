@@ -144,6 +144,52 @@ export const useControlSanitario = () => {
     return { error: fetchError }
   }
 
+  const getEstadisticasVeterinario = async (veterinarioId, mes = null, anio = null) => {
+    loading.value = true
+    error.value = null
+    let url = `${baseUrl}/estadisticas/veterinario/${veterinarioId}`
+    if (mes && anio) url += `?mes=${mes}&anio=${anio}`
+
+    const { data, error: fetchError } = await useFetch(url, {
+      headers: { Authorization: `Bearer ${token.value}` }
+    })
+
+    loading.value = false
+    if (fetchError.value) {
+      error.value = 'Error al obtener estadísticas'
+      console.error('Error:', fetchError.value)
+    }
+    return { data, error: fetchError }
+  }
+
+  const getProximasVacunaciones = async (dias = 30) => {
+    loading.value = true
+    error.value = null
+    const { data, error: fetchError } = await useFetch(`${baseUrl}/proximas-vacunaciones?dias=${dias}`, {
+      headers: { Authorization: `Bearer ${token.value}` }
+    })
+    loading.value = false
+    if (fetchError.value) {
+      error.value = 'Error al obtener vacunaciones'
+      console.error('Error:', fetchError.value)
+    }
+    return { data, error: fetchError }
+  }
+
+  const getHistorialAnimal = async (animalId) => {
+    loading.value = true
+    error.value = null
+    const { data, error: fetchError } = await useFetch(`${baseUrl}/historial-animal/${animalId}`, {
+      headers: { Authorization: `Bearer ${token.value}` }
+    })
+    loading.value = false
+    if (fetchError.value) {
+      error.value = 'Error al obtener historial'
+      console.error('Error:', fetchError.value)
+    }
+    return { data, error: fetchError }
+  }
+
   return {
     controles,
     control,
@@ -155,5 +201,8 @@ export const useControlSanitario = () => {
     createControl,
     updateControl,
     deleteControl,
+    getEstadisticasVeterinario,
+    getProximasVacunaciones,
+    getHistorialAnimal,
   }
 }

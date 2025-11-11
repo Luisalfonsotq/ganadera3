@@ -41,7 +41,8 @@
       </div>
 
       <!-- Próximos Partos -->
-      <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500 cursor-pointer hover:shadow-lg transition"
+      <div
+        class="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500 cursor-pointer hover:shadow-lg transition"
         @click="mostrarPartos = true">
         <div class="flex items-center justify-between">
           <div>
@@ -55,7 +56,8 @@
       </div>
 
       <!-- Estadísticas -->
-      <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500 cursor-pointer hover:shadow-lg transition"
+      <div
+        class="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500 cursor-pointer hover:shadow-lg transition"
         @click="mostrarEstadisticas = true">
         <div class="flex items-center justify-between">
           <div>
@@ -90,11 +92,14 @@
           <thead class="bg-gray-50">
             <tr>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Identificador</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Identificador
+              </th>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Raza</th>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sexo</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Etapa de Vida</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado Salud</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Etapa de Vida
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado Salud
+              </th>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Potrero</th>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Alertas</th>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
@@ -103,7 +108,8 @@
           <tbody class="bg-white divide-y divide-gray-200">
             <tr v-for="animal in animales" :key="animal.id" class="hover:bg-gray-50 transition duration-150">
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ animal.id }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">{{ animal.identificador_unico }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">{{ animal.identificador_unico
+                }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ animal.raza || 'N/A' }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 capitalize">
                 <span :class="animal.sexo === 'macho' ? 'text-blue-600' : 'text-pink-600'">
@@ -126,12 +132,12 @@
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm">
                 <div class="flex gap-2">
-                  <span v-if="animal.requiere_atencion_sanitaria" 
+                  <span v-if="animal.requiere_atencion_sanitaria"
                     class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800"
                     title="Requiere atención sanitaria">
                     <Icon name="heroicons:exclamation-triangle" class="w-4 h-4" />
                   </span>
-                  <span v-if="animal.fecha_probable_parto && isProximoParto(animal.fecha_probable_parto)" 
+                  <span v-if="animal.fecha_probable_parto && isProximoParto(animal.fecha_probable_parto)"
                     class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800"
                     title="Próximo a parir">
                     <Icon name="heroicons:heart" class="w-4 h-4" />
@@ -140,19 +146,19 @@
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                 <div class="flex gap-2">
-                  <NuxtLink :to="`/animales/${animal.id}`" 
-                    class="text-blue-600 hover:text-blue-900"
+                  <NuxtLink :to="`/animales/historial/${animal.id}`" class="text-purple-500 hover:underline"
+                    title="Ver historial">
+                    <Icon name="heroicons:clock" class="w-5 h-5" />
+                  </NuxtLink>
+                  <NuxtLink :to="`/animales/${animal.id}`" class="text-blue-600 hover:text-blue-900"
                     title="Ver detalles">
                     <Icon name="heroicons:eye" class="w-5 h-5" />
                   </NuxtLink>
-                  <NuxtLink :to="`/animales/editar/${animal.id}`" 
-                    class="text-yellow-600 hover:text-yellow-900"
+                  <NuxtLink v-if="user?.rol === 'Administrador' || user?.rol === 'Supervisor'" :to="`/animales/editar/${animal.id}`" class="text-yellow-600 hover:text-yellow-900"
                     title="Editar">
                     <Icon name="heroicons:pencil" class="w-5 h-5" />
                   </NuxtLink>
-                  <button @click="handleDelete(animal.id)" 
-                    class="text-red-600 hover:text-red-900"
-                    title="Eliminar">
+                  <button @click="handleDelete(animal.id)" class="text-red-600 hover:text-red-900" title="Eliminar">
                     <Icon name="heroicons:trash" class="w-5 h-5" />
                   </button>
                 </div>
@@ -199,17 +205,19 @@
             <p>¡Excelente! No hay alertas sanitarias pendientes.</p>
           </div>
           <div v-else class="space-y-3">
-            <div v-for="animal in alertasSanitarias" :key="animal.id" 
+            <div v-for="animal in alertasSanitarias" :key="animal.id"
               class="border border-red-200 rounded-lg p-4 hover:shadow-md transition">
               <div class="flex justify-between items-start">
                 <div>
                   <p class="font-semibold text-gray-900">{{ animal.identificador_unico }}</p>
-                  <p class="text-sm text-gray-600">{{ animal.raza || 'Sin raza' }} • {{ formatEtapaVida(animal.etapa_vida) }}</p>
+                  <p class="text-sm text-gray-600">{{ animal.raza || 'Sin raza' }} • {{
+                    formatEtapaVida(animal.etapa_vida) }}</p>
                   <p class="text-xs text-gray-500 mt-1">
-                    Último control: {{ animal.ultima_fecha_control_sanitario ? formatDate(animal.ultima_fecha_control_sanitario) : 'Nunca' }}
+                    Último control: {{ animal.ultima_fecha_control_sanitario ?
+                      formatDate(animal.ultima_fecha_control_sanitario) : 'Nunca' }}
                   </p>
                 </div>
-                <NuxtLink :to="`/animales/${animal.id}`" 
+                <NuxtLink :to="`/animales/${animal.id}`"
                   class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm">
                   Ver
                 </NuxtLink>
@@ -239,7 +247,7 @@
             <p>No hay partos programados para los próximos 30 días.</p>
           </div>
           <div v-else class="space-y-3">
-            <div v-for="animal in proximosPartos" :key="animal.id" 
+            <div v-for="animal in proximosPartos" :key="animal.id"
               class="border border-purple-200 rounded-lg p-4 hover:shadow-md transition">
               <div class="flex justify-between items-start">
                 <div>
@@ -252,7 +260,7 @@
                     {{ getDiasRestantes(animal.fecha_probable_parto) }}
                   </p>
                 </div>
-                <NuxtLink :to="`/animales/${animal.id}`" 
+                <NuxtLink :to="`/animales/${animal.id}`"
                   class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-sm">
                   Ver
                 </NuxtLink>
@@ -264,7 +272,8 @@
     </div>
 
     <!-- Modal Estadísticas -->
-    <div v-if="mostrarEstadisticas" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div v-if="mostrarEstadisticas"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[80vh] overflow-hidden">
         <div class="bg-green-600 text-white p-4 flex justify-between items-center">
           <h3 class="text-xl font-bold flex items-center gap-2">
@@ -322,27 +331,21 @@
             <p class="text-lg font-semibold text-gray-800 mb-2">Total: {{ estadisticas.total }} animales</p>
             <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
               <div class="h-full flex">
-                <div v-if="estadisticas.total > 0" 
-                  :style="`width: ${(estadisticas.terneros / estadisticas.total * 100)}%`" 
-                  class="bg-blue-500"></div>
-                <div v-if="estadisticas.total > 0" 
-                  :style="`width: ${(estadisticas.terneras / estadisticas.total * 100)}%`" 
-                  class="bg-pink-500"></div>
-                <div v-if="estadisticas.total > 0" 
-                  :style="`width: ${(estadisticas.novillos / estadisticas.total * 100)}%`" 
-                  class="bg-indigo-500"></div>
-                <div v-if="estadisticas.total > 0" 
-                  :style="`width: ${(estadisticas.novillas / estadisticas.total * 100)}%`" 
-                  class="bg-purple-500"></div>
-                <div v-if="estadisticas.total > 0" 
-                  :style="`width: ${(estadisticas.adultos / estadisticas.total * 100)}%`" 
-                  class="bg-green-500"></div>
-                <div v-if="estadisticas.total > 0" 
-                  :style="`width: ${(estadisticas.adultas / estadisticas.total * 100)}%`" 
-                  class="bg-emerald-500"></div>
-                <div v-if="estadisticas.total > 0" 
-                  :style="`width: ${(estadisticas.adultos_mayores / estadisticas.total * 100)}%`" 
-                  class="bg-gray-500"></div>
+                <div v-if="estadisticas.total > 0"
+                  :style="`width: ${(estadisticas.terneros / estadisticas.total * 100)}%`" class="bg-blue-500"></div>
+                <div v-if="estadisticas.total > 0"
+                  :style="`width: ${(estadisticas.terneras / estadisticas.total * 100)}%`" class="bg-pink-500"></div>
+                <div v-if="estadisticas.total > 0"
+                  :style="`width: ${(estadisticas.novillos / estadisticas.total * 100)}%`" class="bg-indigo-500"></div>
+                <div v-if="estadisticas.total > 0"
+                  :style="`width: ${(estadisticas.novillas / estadisticas.total * 100)}%`" class="bg-purple-500"></div>
+                <div v-if="estadisticas.total > 0"
+                  :style="`width: ${(estadisticas.adultos / estadisticas.total * 100)}%`" class="bg-green-500"></div>
+                <div v-if="estadisticas.total > 0"
+                  :style="`width: ${(estadisticas.adultas / estadisticas.total * 100)}%`" class="bg-emerald-500"></div>
+                <div v-if="estadisticas.total > 0"
+                  :style="`width: ${(estadisticas.adultos_mayores / estadisticas.total * 100)}%`" class="bg-gray-500">
+                </div>
               </div>
             </div>
           </div>
@@ -361,11 +364,11 @@ import { useAnimal } from '~/composables/useAnimal'
 
 const { user } = useAuth()
 const { getAllFincas } = useFinca()
-const { 
-  animales, 
-  loading, 
-  error, 
-  getAnimalesOfFinca, 
+const {
+  animales,
+  loading,
+  error,
+  getAnimalesOfFinca,
   deleteAnimal,
   getAlertasSanitarias,
   getProximosPartos,
@@ -396,7 +399,7 @@ const loadFincas = async () => {
     console.log('No se pudo obtener el id del usuario')
     return
   }
-  
+
   const { data, error } = await getAllFincas(userId, user.value.rol)
 
   if (data.value && data.value.length > 0) {
@@ -481,10 +484,10 @@ const formatEstadoSalud = (estado) => {
 
 const formatDate = (date) => {
   if (!date) return 'N/A'
-  return new Date(date).toLocaleDateString('es-ES', { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
+  return new Date(date).toLocaleDateString('es-ES', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
   })
 }
 
@@ -501,7 +504,7 @@ const getDiasRestantes = (fechaParto) => {
   const fecha = new Date(fechaParto)
   const hoy = new Date()
   const diasDiferencia = Math.ceil((fecha - hoy) / (1000 * 60 * 60 * 24))
-  
+
   if (diasDiferencia < 0) return 'Fecha pasada'
   if (diasDiferencia === 0) return '¡Hoy!'
   if (diasDiferencia === 1) return 'Mañana'
