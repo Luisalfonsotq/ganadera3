@@ -283,7 +283,7 @@ async function handleRegister() {
     
     // Esperar 2 segundos antes de redirigir
     setTimeout(() => {
-      router.push('/login');
+      router.push('/profile');
     }, 2000);
     
   } catch (err) {

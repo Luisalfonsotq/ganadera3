@@ -232,6 +232,7 @@ export const roleSidebarConfig = {
       ]
     },
   ],
+  Pending:[],
 };
 
 // Configuración del botón crear por rol
