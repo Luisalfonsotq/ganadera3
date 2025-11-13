@@ -27,9 +27,63 @@
 
         <div>
           <label class="block text-sm font-medium text-gray-700">Raza</label>
-          <input type="text" v-model="form.raza" 
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 p-2 border"
-            placeholder="Ej: Holstein, Brahman">
+          <select v-model="form.raza" @change="onRazaChange"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 p-2 border bg-white">
+            <option value="">Selecciona una raza</option>
+            <optgroup label="Razas Cebuínas (Carne)">
+              <option value="brahman">Brahman</option>
+              <option value="cebu">Cebú</option>
+              <option value="gyr">Gyr</option>
+              <option value="guzerat">Guzerá</option>
+              <option value="nelore">Nelore</option>
+              <option value="indubrasil">Indubrasil</option>
+            </optgroup>
+            <optgroup label="Razas Europeas (Carne)">
+              <option value="angus">Angus</option>
+              <option value="hereford">Hereford</option>
+              <option value="charolais">Charolais</option>
+              <option value="limousin">Limousin</option>
+              <option value="brangus">Brangus</option>
+              <option value="braford">Braford</option>
+            </optgroup>
+            <optgroup label="Razas Lecheras">
+              <option value="holstein">Holstein</option>
+              <option value="jersey">Jersey</option>
+              <option value="pardo_suizo">Pardo Suizo</option>
+              <option value="ayrshire">Ayrshire</option>
+              <option value="guernsey">Guernsey</option>
+            </optgroup>
+            <optgroup label="Razas Doble Propósito">
+              <option value="normando">Normando</option>
+              <option value="simmental">Simmental</option>
+              <option value="bon">BON (Blanco Orejinegro)</option>
+              <option value="lucerna">Lucerna</option>
+              <option value="harton">Hartón del Valle</option>
+              <option value="sanmartinero">Sanmartinero</option>
+              <option value="costeño_con_cuernos">Costeño con Cuernos</option>
+              <option value="caqueteño">Caqueteño</option>
+              <option value="chino_santandereano">Chino Santandereano</option>
+            </optgroup>
+            <optgroup label="Razas Criollas Colombianas">
+              <option value="romosinuano">Romosinuano</option>
+              <option value="casanareño">Casanareño</option>
+              <option value="criolla">Criolla Colombiana</option>
+            </optgroup>
+            <option value="otra">Otra raza (especificar)</option>
+          </select>
+          <p v-if="form.raza" class="text-xs text-gray-500 mt-1">
+            Tipo: <span class="font-semibold">{{ getTipoRazaLabel() }}</span>
+          </p>
+        </div>
+
+        <!-- Input manual para "otra raza" -->
+        <div v-if="form.raza === 'otra'" class="md:col-span-2">
+          <label class="block text-sm font-medium text-gray-700">Especifica la raza *</label>
+          <input type="text" v-model="form.raza_manual" 
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 p-2 border" 
+            required
+            placeholder="Escribe el nombre de la raza">
+          <p class="text-xs text-gray-500 mt-1">Ingresa el nombre completo de la raza</p>
         </div>
 
         <div>
@@ -45,14 +99,23 @@
 
         <div>
           <label class="block text-sm font-medium text-gray-700">Peso (kg)</label>
-          <input type="number" v-model.number="form.peso_kg" step="0.01" min="0"
+          <input type="number" v-model.number="form.peso_kg" step="0.01" min="0" @input="calcularEstadoPeso"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 p-2 border"
             placeholder="Ej: 450.50">
+          <p v-if="estadoPeso.estado !== 'sin_datos' && estadoPeso.estado !== 'sin_referencia'" 
+            class="text-xs mt-1 font-semibold"
+            :class="{
+              'text-green-600': estadoPeso.color === 'green',
+              'text-orange-600': estadoPeso.color === 'orange',
+              'text-red-600': estadoPeso.color === 'red'
+            }">
+            {{ estadoPeso.mensaje }}
+          </p>
         </div>
 
         <div>
           <label class="block text-sm font-medium text-gray-700">Fecha de Nacimiento</label>
-          <input type="date" v-model="form.fecha_nacimiento" 
+          <input type="date" v-model="form.fecha_nacimiento" @change="calcularEstadoPeso"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 p-2 border">
           <p class="text-xs text-gray-500 mt-1">
             <span v-if="form.fecha_nacimiento && form.sexo">
@@ -60,6 +123,44 @@
             </span>
             <span v-else>Ingresa fecha y sexo para ver la etapa estimada</span>
           </p>
+        </div>
+
+        <!-- Indicador de estado de peso detallado -->
+        <div v-if="estadoPeso.estado !== 'sin_datos' && estadoPeso.estado !== 'sin_referencia' && form.peso_kg" 
+          class="md:col-span-2 p-4 rounded-lg border-2"
+          :class="{
+            'bg-green-50 border-green-300': estadoPeso.color === 'green',
+            'bg-orange-50 border-orange-300': estadoPeso.color === 'orange',
+            'bg-red-50 border-red-300': estadoPeso.color === 'red'
+          }">
+          <div class="flex items-start">
+            <Icon name="heroicons:scale" class="w-6 h-6 mr-3 mt-1"
+              :class="{
+                'text-green-600': estadoPeso.color === 'green',
+                'text-orange-600': estadoPeso.color === 'orange',
+                'text-red-600': estadoPeso.color === 'red'
+              }" />
+            <div class="flex-1">
+              <p class="text-sm font-semibold mb-1"
+                :class="{
+                  'text-green-800': estadoPeso.color === 'green',
+                  'text-orange-800': estadoPeso.color === 'orange',
+                  'text-red-800': estadoPeso.color === 'red'
+                }">
+                Estado del Peso: {{ estadoPeso.mensaje }}
+              </p>
+              <div class="text-xs space-y-1"
+                :class="{
+                  'text-green-700': estadoPeso.color === 'green',
+                  'text-orange-700': estadoPeso.color === 'orange',
+                  'text-red-700': estadoPeso.color === 'red'
+                }">
+                <p>• Peso actual: <span class="font-semibold">{{ form.peso_kg }} kg</span></p>
+                <p>• Peso ideal: <span class="font-semibold">{{ estadoPeso.pesoIdeal }}</span></p>
+                <p>• Rango recomendado: <span class="font-semibold">{{ estadoPeso.rangoReferencia }}</span></p>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div>
@@ -186,6 +287,9 @@
 </template>
 
 <script setup>
+import { razasBovinas, getTipoRaza, getRazaLabel } from '~/utils/razasBovinas'
+import { calcularEstadoPeso as calcularEstadoPesoUtil } from '~/utils/pesosBovinos'
+
 definePageMeta({ layout: 'profile-layout' })
 
 const { createAnimal } = useAnimal()
@@ -198,6 +302,7 @@ const router = useRouter()
 const form = ref({
   identificador_unico: '',
   raza: '',
+  raza_manual: '',
   sexo: '',
   peso_kg: null,
   fecha_nacimiento: null,
@@ -220,6 +325,7 @@ const errorFincas = ref('')
 const isSubmitting = ref(false)
 const success = ref(null)
 const animalError = ref(null)
+const estadoPeso = ref({ estado: 'sin_datos', porcentaje: 0, mensaje: '' })
 
 const loadFincas = async () => {
   const userId = user.value?.id || user.value?.userId
@@ -246,11 +352,19 @@ const loadProveedores = async () => {
   }
 }
 
+const onRazaChange = () => {
+  if (form.value.raza !== 'otra') {
+    form.value.raza_manual = ''
+  }
+  calcularEstadoPeso()
+}
+
 const onSexoChange = () => {
   const estadosRestringidos = ['lactando', 'prenada', 'vacia', 'en_produccion_lechera']
   if (form.value.sexo === 'macho' && estadosRestringidos.includes(form.value.estado_reproductivo)) {
     form.value.estado_reproductivo = null
   }
+  calcularEstadoPeso()
 }
 
 const onOrigenChange = () => {
@@ -272,6 +386,18 @@ const onFincaChange = async () => {
   }
 }
 
+const getTipoRazaLabel = () => {
+  if (!form.value.raza) return ''
+  const tipo = getTipoRaza(form.value.raza)
+  const labels = {
+    'carne': 'Carne',
+    'leche': 'Leche',
+    'doble_proposito': 'Doble Propósito',
+    'otro': 'Otro'
+  }
+  return labels[tipo] || tipo
+}
+
 const calcularEtapaEstimada = () => {
   if (!form.value.fecha_nacimiento || !form.value.sexo) return 'N/A'
   
@@ -289,6 +415,49 @@ const calcularEtapaEstimada = () => {
   if (!esMacho && meses >= 8 && meses < 30) return 'Novilla (8-30 meses)'
   if (meses >= 96) return 'Adulto Mayor (8+ años)'
   return esMacho ? 'Adulto (24+ meses)' : 'Adulta (30+ meses o con parto)'
+}
+
+const getEtapaVidaNormalizada = () => {
+  if (!form.value.fecha_nacimiento || !form.value.sexo) return null
+  
+  const hoy = new Date()
+  const nacimiento = new Date(form.value.fecha_nacimiento)
+  let meses = (hoy.getFullYear() - nacimiento.getFullYear()) * 12
+  meses += hoy.getMonth() - nacimiento.getMonth()
+  if (hoy.getDate() < nacimiento.getDate()) meses--
+  
+  const esMacho = form.value.sexo === 'macho'
+  
+  if (meses < 0) return null
+  if (meses < 8) return esMacho ? 'ternero' : 'ternera'
+  if (esMacho && meses >= 8 && meses < 24) return 'novillo'
+  if (!esMacho && meses >= 8 && meses < 30) return 'novilla'
+  if (meses >= 96) return 'adulto_mayor'
+  return esMacho ? 'adulto' : 'adulta'
+}
+
+const calcularEstadoPeso = () => {
+  if (!form.value.peso_kg || !form.value.raza || !form.value.sexo || !form.value.fecha_nacimiento) {
+    estadoPeso.value = { estado: 'sin_datos', porcentaje: 0, mensaje: '' }
+    return
+  }
+
+  const etapaVida = getEtapaVidaNormalizada()
+  if (!etapaVida) {
+    estadoPeso.value = { estado: 'sin_datos', porcentaje: 0, mensaje: '' }
+    return
+  }
+
+  const razaParaCalculo = form.value.raza === 'otra' ? null : form.value.raza
+  const tipoRaza = razaParaCalculo ? getTipoRaza(razaParaCalculo) : 'doble_proposito'
+
+  estadoPeso.value = calcularEstadoPesoUtil(
+    form.value.peso_kg,
+    razaParaCalculo,
+    form.value.sexo,
+    etapaVida,
+    tipoRaza
+  )
 }
 
 watch(user, loadFincas, { immediate: true })
@@ -312,6 +481,9 @@ const handleCrearAnimal = async () => {
     if (!form.value.sexo) {
       throw new Error('Debes seleccionar el sexo del animal.')
     }
+    if (form.value.raza === 'otra' && !form.value.raza_manual.trim()) {
+      throw new Error('Debes especificar el nombre de la raza.')
+    }
 
     const dataToSend = {
       identificador_unico: form.value.identificador_unico,
@@ -320,9 +492,13 @@ const handleCrearAnimal = async () => {
       estado_salud: form.value.estado_salud || 'sano',
     }
 
-    if (form.value.raza && form.value.raza.trim()) {
-      dataToSend.raza = form.value.raza.trim()
+    // Guardar la raza correctamente
+    if (form.value.raza === 'otra') {
+      dataToSend.raza = form.value.raza_manual.trim()
+    } else if (form.value.raza && form.value.raza.trim()) {
+      dataToSend.raza = getRazaLabel(form.value.raza)
     }
+
     if (form.value.peso_kg) {
       dataToSend.peso_kg = form.value.peso_kg
     }
