@@ -5,7 +5,7 @@ import { ref } from 'vue'
 export const useAnimal = () => {
   const { public: { apiBaseUrl } } = useRuntimeConfig()
   const baseUrl = `${apiBaseUrl}/animales`
-  const token = useCookie('access_token')
+  // const token = useCookie('access_token') // Token is in httpOnly cookie
   const animales = ref([])
   const animal = ref(null)
   const loading = ref(false)
@@ -22,7 +22,7 @@ export const useAnimal = () => {
     loading.value = true
     error.value = null
     const { data, error: fetchError } = await useFetch(url, {
-      headers: { Authorization: `Bearer ${token.value}` }
+      credentials: 'include'
     })
     if (fetchError.value) {
       error.value = 'No se pudo obtener la lista de animales.'
@@ -40,7 +40,7 @@ export const useAnimal = () => {
     loading.value = true
     error.value = null
     const { data, error: fetchError } = await useFetch(`${baseUrl}/${id}`, {
-      headers: { Authorization: `Bearer ${token.value}` }
+      credentials: 'include'
     })
     if (fetchError.value) {
       error.value = 'No se pudo obtener el animal.'
@@ -58,8 +58,8 @@ export const useAnimal = () => {
     error.value = null
     const { data: newAnimal, error: fetchError } = await useFetch(baseUrl, {
       method: 'POST',
+      credentials: 'include',
       headers: {
-        Authorization: `Bearer ${token.value}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(animalData),
@@ -88,8 +88,8 @@ export const useAnimal = () => {
     error.value = null
     const { data: updated, error: fetchError } = await useFetch(`${baseUrl}/${id}`, {
       method: 'PATCH',
+      credentials: 'include',
       headers: {
-        Authorization: `Bearer ${token.value}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data)
@@ -118,7 +118,7 @@ export const useAnimal = () => {
     error.value = null
     const { error: fetchError } = await useFetch(`${baseUrl}/${id}`, {
       method: 'DELETE',
-      headers: { Authorization: `Bearer ${token.value}` },
+      credentials: 'include'
     })
 
     if (fetchError.value) {
@@ -142,7 +142,7 @@ export const useAnimal = () => {
     error.value = null
     const url = fincaId ? `${baseUrl}/alertas-sanitarias?finca_id=${fincaId}` : `${baseUrl}/alertas-sanitarias`
     const { data, error: fetchError } = await useFetch(url, {
-      headers: { Authorization: `Bearer ${token.value}` }
+      credentials: 'include'
     })
     loading.value = false
     if (fetchError.value) {
@@ -159,7 +159,7 @@ export const useAnimal = () => {
     let url = `${baseUrl}/proximos-partos?dias=${dias}`
     if (fincaId) url += `&finca_id=${fincaId}`
     const { data, error: fetchError } = await useFetch(url, {
-      headers: { Authorization: `Bearer ${token.value}` }
+      credentials: 'include'
     })
     loading.value = false
     if (fetchError.value) {
@@ -175,7 +175,7 @@ export const useAnimal = () => {
     error.value = null
     const url = fincaId ? `${baseUrl}/estadisticas/etapas-vida?finca_id=${fincaId}` : `${baseUrl}/estadisticas/etapas-vida`
     const { data, error: fetchError } = await useFetch(url, {
-      headers: { Authorization: `Bearer ${token.value}` }
+      credentials: 'include'
     })
     loading.value = false
     if (fetchError.value) {

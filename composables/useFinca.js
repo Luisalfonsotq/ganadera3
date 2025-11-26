@@ -8,9 +8,10 @@ export const useFinca = () => {
     if (rol === 'Administrador') {
       url = `${baseUrl}?propietario_id=${userId}`
     } else {
-      return { data: ref([]), error: ref(null) }
+      // Para otros roles, obtener fincas asignadas
+      url = `${baseUrl}/by-user/${userId}`
     }
-    
+
     const { data, error } = await useFetch(url, {
       credentials: 'include',
       headers: {

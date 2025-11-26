@@ -5,7 +5,7 @@ import { ref } from 'vue'
 export const usePotrero = () => {
   const { public: { apiBaseUrl } } = useRuntimeConfig()
   const baseUrl = `${apiBaseUrl}/potreros`
-  const token = useCookie('access_token')
+  // const token = useCookie('access_token')
   const potreros = ref([])
   const potrero = ref(null)
   const loading = ref(false)
@@ -17,17 +17,17 @@ export const usePotrero = () => {
     loading.value = true;
     error.value = null;
     const { data, error: fetchError } = await useFetch(url, {
-      headers: { Authorization: `Bearer ${token.value}` }
+      credentials: 'include'
     });
     if (fetchError.value) {
       error.value = 'No se pudo obtener la lista de potreros.';
       console.error('Error fetching potreros:', fetchError.value);
     } else {
-      potreros.value = Array.isArray(data.value)? data.value:[];
+      potreros.value = Array.isArray(data.value) ? data.value : [];
       console.log('Fetched potreros:', potreros.value)
     }
     loading.value = false;
-    return {data, error: fetchError};
+    return { data, error: fetchError };
   };
 
   // GetById: obtener potreros por id
@@ -35,7 +35,7 @@ export const usePotrero = () => {
     loading.value = true;
     error.value = null;
     const { data, error: fetchError } = await useFetch(`${baseUrl}/${id}`, {
-      headers: { Authorization: `Bearer ${token.value}` }
+      credentials: 'include'
     });
     if (fetchError.value) {
       error.value = 'No se pudo obtener el potrero.';
@@ -44,7 +44,7 @@ export const usePotrero = () => {
       potrero.value = data.value;
     }
     loading.value = false;
-    return { data, error: fetchError};
+    return { data, error: fetchError };
   };
 
   // POST: Crear un nuevo potrero
@@ -53,8 +53,8 @@ export const usePotrero = () => {
     error.value = null;
     const { data: newPotrero, error: fetchError } = await useFetch(baseUrl, {
       method: 'POST',
+      credentials: 'include',
       headers: {
-        Authorization: `Bearer ${token.value}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(potreroData),
@@ -80,8 +80,8 @@ export const usePotrero = () => {
     error.value = null;
     const { data: updated, error: fetchError } = await useFetch(`${baseUrl}/${id}`, {
       method: 'PATCH',
+      credentials: 'include',
       headers: {
-        Authorization: `Bearer ${token.value}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data)
@@ -112,7 +112,7 @@ export const usePotrero = () => {
     error.value = null;
     const { error: fetchError } = await useFetch(`${baseUrl}/${id}`, {
       method: 'DELETE',
-      headers: { Authorization: `Bearer ${token.value}` },
+      credentials: 'include'
     });
 
     if (fetchError.value) {
@@ -127,7 +127,7 @@ export const usePotrero = () => {
       }
     }
     loading.value = false;
-    return { error: fetchError};
+    return { error: fetchError };
   };
 
   return {

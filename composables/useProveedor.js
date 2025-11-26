@@ -5,7 +5,7 @@ import { ref } from 'vue'
 export const useProveedor = () => {
   const { public: { apiBaseUrl } } = useRuntimeConfig()
   const baseUrl = `${apiBaseUrl}/proveedores`
-  const token = useCookie('access_token')
+  // const token = useCookie('access_token')
   const proveedores = ref([])
   const proveedor = ref(null)
   const loading = ref(false)
@@ -16,7 +16,7 @@ export const useProveedor = () => {
     loading.value = true
     error.value = null
     const { data, error: fetchError } = await useFetch(baseUrl, {
-      headers: { Authorization: `Bearer ${token.value}` }
+      credentials: 'include'
     })
     if (fetchError.value) {
       error.value = 'No se pudo obtener la lista de proveedores.'
@@ -34,7 +34,7 @@ export const useProveedor = () => {
     loading.value = true
     error.value = null
     const { data, error: fetchError } = await useFetch(`${baseUrl}/${id}`, {
-      headers: { Authorization: `Bearer ${token.value}` }
+      credentials: 'include'
     })
     if (fetchError.value) {
       error.value = 'No se pudo obtener el proveedor.'
@@ -52,8 +52,8 @@ export const useProveedor = () => {
     error.value = null
     const { data: newProveedor, error: fetchError } = await useFetch(baseUrl, {
       method: 'POST',
+      credentials: 'include',
       headers: {
-        Authorization: `Bearer ${token.value}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(proveedorData),
@@ -79,8 +79,8 @@ export const useProveedor = () => {
     error.value = null
     const { data: updated, error: fetchError } = await useFetch(`${baseUrl}/${id}`, {
       method: 'PATCH',
+      credentials: 'include',
       headers: {
-        Authorization: `Bearer ${token.value}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data)
@@ -109,7 +109,7 @@ export const useProveedor = () => {
     error.value = null
     const { error: fetchError } = await useFetch(`${baseUrl}/${id}`, {
       method: 'DELETE',
-      headers: { Authorization: `Bearer ${token.value}` },
+      credentials: 'include'
     })
 
     if (fetchError.value) {
