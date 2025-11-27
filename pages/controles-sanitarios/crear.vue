@@ -12,7 +12,7 @@
             :disabled="loadingAnimales">
             <option :value="null">Selecciona el animal</option>
             <option v-for="animal in animales" :key="animal.id" :value="animal.id">
-              {{ animal.identificador_unico }} - {{ animal.raza || 'Sin raza' }}
+              {{ animal.identificador_unico }} - {{ animal.raza || 'Sin raza' }} ({{ animal.nombre_finca }})
             </option>
           </select>
           <p v-if="loadingAnimales" class="text-xs text-blue-500 mt-1">Cargando animales...</p>
@@ -155,10 +155,18 @@ const loadAnimales = async () => {
   const { data: fincasData } = await getAllFincas(userId, user.value.rol)
   
   if (fincasData.value && fincasData.value.length > 0) {
-    const { data: animalesData } = await getAnimalesOfFinca(fincasData.value[0].id)
-    if (animalesData.value) {
-      animales.value = animalesData.value
+    const allAnimales = []
+    for (const finca of fincasData.value) {
+      const { data: animalesData } = await getAnimalesOfFinca(finca.id)
+      if (animalesData.value) {
+        const animalsWithFinca = animalesData.value.map(a => ({
+          ...a,
+          nombre_finca: finca.nombre
+        }))
+        allAnimales.push(...animalsWithFinca)
+      }
     }
+    animales.value = allAnimales
   }
   loadingAnimales.value = false
 }
