@@ -16,7 +16,8 @@ export const useControlSanitario = () => {
     loading.value = true
     error.value = null
     const { data, error: fetchError } = await useFetch(baseUrl, {
-      headers: { Authorization: `Bearer ${token.value}` }
+      headers: { Authorization: `Bearer ${token.value}` },
+      credentials: 'include'
     })
     if (fetchError.value) {
       error.value = 'No se pudo obtener la lista de controles sanitarios.'
@@ -33,7 +34,8 @@ export const useControlSanitario = () => {
     loading.value = true
     error.value = null
     const { data, error: fetchError } = await useFetch(`${baseUrl}/${id}`, {
-      headers: { Authorization: `Bearer ${token.value}` }
+      headers: { Authorization: `Bearer ${token.value}` },
+      credentials: 'include'
     })
     if (fetchError.value) {
       error.value = 'No se pudo obtener el control sanitario.'
@@ -50,7 +52,8 @@ export const useControlSanitario = () => {
     loading.value = true
     error.value = null
     const { data, error: fetchError } = await useFetch(`${baseUrl}/por-animal/${animalId}`, {
-      headers: { Authorization: `Bearer ${token.value}` }
+      headers: { Authorization: `Bearer ${token.value}` },
+      credentials: 'include'
     })
     if (fetchError.value) {
       error.value = 'No se pudo obtener los controles del animal.'
@@ -73,6 +76,7 @@ export const useControlSanitario = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(controlData),
+      credentials: 'include'
     })
 
     if (fetchError.value) {
@@ -102,7 +106,8 @@ export const useControlSanitario = () => {
         Authorization: `Bearer ${token.value}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
+      credentials: 'include'
     })
 
     if (fetchError.value) {
@@ -129,6 +134,7 @@ export const useControlSanitario = () => {
     const { error: fetchError } = await useFetch(`${baseUrl}/${id}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${token.value}` },
+      credentials: 'include'
     })
 
     if (fetchError.value) {
@@ -151,7 +157,8 @@ export const useControlSanitario = () => {
     if (mes && anio) url += `?mes=${mes}&anio=${anio}`
 
     const { data, error: fetchError } = await useFetch(url, {
-      headers: { Authorization: `Bearer ${token.value}` }
+      headers: { Authorization: `Bearer ${token.value}` },
+      credentials: 'include'
     })
 
     loading.value = false
@@ -166,7 +173,8 @@ export const useControlSanitario = () => {
     loading.value = true
     error.value = null
     const { data, error: fetchError } = await useFetch(`${baseUrl}/proximas-vacunaciones?dias=${dias}`, {
-      headers: { Authorization: `Bearer ${token.value}` }
+      headers: { Authorization: `Bearer ${token.value}` },
+      credentials: 'include'
     })
     loading.value = false
     if (fetchError.value) {
@@ -180,7 +188,8 @@ export const useControlSanitario = () => {
     loading.value = true
     error.value = null
     const { data, error: fetchError } = await useFetch(`${baseUrl}/historial-animal/${animalId}`, {
-      headers: { Authorization: `Bearer ${token.value}` }
+      headers: { Authorization: `Bearer ${token.value}` },
+      credentials: 'include'
     })
     loading.value = false
     if (fetchError.value) {

@@ -3,10 +3,12 @@
 import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
 import { useAuth } from '@/composables/useAuth'
 import { useRouter } from 'vue-router'
-import { roleSidebarConfig, btnCrear, roleNotifications } from '@/utils/roleConfig'
+import { roleSidebarConfig, btnCrear } from '@/utils/roleConfig'
+import { useNotifications } from '@/composables/useNotifications'
 
 const { user, logout, profile } = useAuth()
 const router = useRouter()
+const { notifications, fetchNotifications } = useNotifications()
 
 // Estados reactivos
 const isSidebarOpen = ref(false)
@@ -32,13 +34,6 @@ const btnCrearItems = computed(() => {
     return []
   }
   return btnCrear[user.value.rol] || []
-})
-
-const notifications = computed(() => {
-  if (!user.value || !user.value.rol) {
-    return []
-  }
-  return roleNotifications[user.value.rol] || []
 })
 
 const notificationCount = computed(() => {
@@ -165,6 +160,11 @@ onMounted(async () => {
     console.log('✅ User already loaded:', user.value)
   }
   
+  // Cargar notificaciones
+  if (user.value) {
+    fetchNotifications()
+  }
+
   // Inicializar navegación
   initializeOpenSubMenus()
   updateActiveNavItem()
@@ -189,6 +189,7 @@ watch(user, (newUser, oldUser) => {
   if (newUser && newUser !== oldUser) {
     initializeOpenSubMenus()
     updateActiveNavItem()
+    fetchNotifications()
   }
 }, { deep: true })
 

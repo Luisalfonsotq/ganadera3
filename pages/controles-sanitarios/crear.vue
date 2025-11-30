@@ -32,19 +32,6 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700">Veterinario</label>
-          <select v-model.number="form.veterinario_id"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 p-2 border bg-white"
-            :disabled="loadingVeterinarios">
-            <option :value="null">Sin veterinario asignado</option>
-            <option v-for="vet in veterinarios" :key="vet.id" :value="vet.id">
-              {{ vet.nombre }}
-            </option>
-          </select>
-          <p v-if="loadingVeterinarios" class="text-xs text-blue-500 mt-1">Cargando veterinarios...</p>
-        </div>
-
-        <div>
           <label class="block text-sm font-medium text-gray-700">Fecha *</label>
           <input type="date" v-model="form.fecha" required
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 p-2 border">
@@ -115,7 +102,6 @@ definePageMeta({ layout: 'profile-layout' })
 const { createControl } = useControlSanitario()
 const { getAnimalesOfFinca } = useAnimal()
 const { getAllTiposControlSanitario } = useTipoControlSanitario()
-const { getVeterinarios } = useUsuario()
 const { getAllFincas } = useFinca()
 const { user } = useAuth()
 const router = useRouter()
@@ -134,10 +120,8 @@ const form = ref({
 
 const animales = ref([])
 const tiposControl = ref([])
-const veterinarios = ref([])
 const loadingAnimales = ref(false)
 const loadingTipos = ref(false)
-const loadingVeterinarios = ref(false)
 const isSubmitting = ref(false)
 const success = ref(null)
 const controlError = ref(null)
@@ -180,15 +164,6 @@ const loadTiposControl = async () => {
   loadingTipos.value = false
 }
 
-const loadVeterinarios = async () => {
-  loadingVeterinarios.value = true
-  const { data } = await getVeterinarios()
-  if (data.value) {
-    veterinarios.value = data.value
-  }
-  loadingVeterinarios.value = false
-}
-
 watch(user, () => {
   loadAnimales()
 }, { immediate: true })
@@ -202,7 +177,6 @@ onMounted(() => {
   
   loadAnimales()
   loadTiposControl()
-  loadVeterinarios()
 })
 
 const handleCrear = async () => {
@@ -225,11 +199,9 @@ const handleCrear = async () => {
       animal_id: form.value.animal_id,
       tipo_control_id: form.value.tipo_control_id,
       fecha: form.value.fecha,
+      veterinario_id: user.value.id // Asignar automáticamente el veterinario actual
     }
 
-    if (form.value.veterinario_id) {
-      dataToSend.veterinario_id = form.value.veterinario_id
-    }
     if (form.value.medicamento && form.value.medicamento.trim()) {
       dataToSend.medicamento = form.value.medicamento.trim()
     }

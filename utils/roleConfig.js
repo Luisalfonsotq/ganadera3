@@ -17,7 +17,7 @@ export const roleSidebarConfig = {
       subItems: [
         { name: 'Listado de Animales', path: '/animales', key: 'animal-list' },
         { name: 'Listado de Proveedores', path: '/proveedores', key: 'proveedores-list' },
-        { name: 'Control Sanitario', path: '/tipos-control-sanitario', key: 'sanitary-control' },
+        { name: 'Tipos de Controles Sanitario', path: '/tipos-control-sanitario', key: 'sanitary-control' },
         { name: 'Eventos', path: '/eventos-animal', key: 'events' },
         { name: 'Tipos de Eventos', path: '/tipos-evento-animal', key: 'events' },
         { name: 'Reproducción', path: '/reproducciones', key: 'reproduction' },
@@ -79,7 +79,7 @@ export const roleSidebarConfig = {
       ]
     },
   ],
-  
+
   Veterinario: [
     {
       name: 'Dashboard',
@@ -94,7 +94,7 @@ export const roleSidebarConfig = {
       key: 'sanitary',
       subItems: [
         { name: 'Historial Médico', path: '/sanitario/historial', key: 'medical-history' },
-        { name: 'control sanitario prueba', path: '/controles-sanitarios', key: 'medical-history' },
+        { name: 'Control Sanitario', path: '/controles-sanitarios', key: 'medical-history' },
         { name: 'Vacunaciones', path: '/sanitario/vacunas', key: 'vaccinations' },
         { name: 'Tratamientos', path: '/sanitario/tratamientos', key: 'treatments' },
         { name: 'Diagnósticos', path: '/sanitario/diagnosticos', key: 'diagnostics' },
@@ -133,7 +133,7 @@ export const roleSidebarConfig = {
       ]
     },
   ],
-  
+
   Supervisor: [
     {
       name: 'Dashboard',
@@ -183,7 +183,7 @@ export const roleSidebarConfig = {
       ]
     },
   ],
-  
+
   Colaborador: [
     {
       name: 'Dashboard',
@@ -232,7 +232,7 @@ export const roleSidebarConfig = {
       ]
     },
   ],
-  Pending:[],
+  Pending: [],
 };
 
 // Configuración del botón crear por rol
@@ -245,7 +245,7 @@ export const btnCrear = {
     { name: 'Asignar Tarea', icon: 'i-heroicons-clipboard-document', path: '/tareas/crear' },
     { name: 'Programar Evento', icon: 'i-heroicons-calendar-days', path: '/eventos/crear' },
   ],
-  
+
   Veterinario: [
     { name: 'Registrar Consulta', icon: 'i-heroicons-clipboard-document-list', path: '/consultas/crear' },
     { name: 'Programar Vacunación', icon: 'i-heroicons-beaker', path: '/vacunas/programar' },
@@ -253,14 +253,14 @@ export const btnCrear = {
     { name: 'Registrar Diagnóstico', icon: 'i-heroicons-document-text', path: '/diagnosticos/crear' },
     { name: 'Programar Chequeo', icon: 'i-heroicons-calendar', path: '/chequeos/programar' },
   ],
-  
+
   Supervisor: [
     { name: 'Crear Alerta', icon: 'i-heroicons-bell', path: '/alertas/crear' },
     { name: 'Asignar Actividad', icon: 'i-heroicons-list-bullet', path: '/actividades/crear' },
     { name: 'Generar Reporte', icon: 'i-heroicons-document-chart-bar', path: '/reportes/generar' },
     { name: 'Programar Supervisión', icon: 'i-heroicons-eye', path: '/supervision/programar' },
   ],
-  
+
   Colaborador: [
     { name: 'Reportar Incidencia', icon: 'i-heroicons-exclamation-triangle', path: '/incidencias/crear' },
     { name: 'Registrar Observación', icon: 'i-heroicons-chat-bubble-left-right', path: '/observaciones/crear' },
@@ -290,7 +290,7 @@ export const roleNotifications = {
       time: '3 horas'
     },
   ],
-  
+
   Veterinario: [
     {
       title: 'Vacunación pendiente',
@@ -311,7 +311,7 @@ export const roleNotifications = {
       time: '4 horas'
     },
   ],
-  
+
   Supervisor: [
     {
       title: 'Tarea vencida',
@@ -332,7 +332,7 @@ export const roleNotifications = {
       time: '2 horas'
     },
   ],
-  
+
   Colaborador: [
     {
       title: 'Nueva tarea asignada',
@@ -415,7 +415,7 @@ export const roleDashboardCards = {
       path: '/reportes'
     },
   ],
-  
+
   Veterinario: [
     {
       title: 'Control Sanitario',
@@ -446,7 +446,7 @@ export const roleDashboardCards = {
       path: '/eventos'
     },
   ],
-  
+
   Supervisor: [
     {
       title: 'Supervisión Diaria',
@@ -477,7 +477,7 @@ export const roleDashboardCards = {
       path: '/alertas'
     },
   ],
-  
+
   Colaborador: [
     {
       title: 'Mis Tareas',
