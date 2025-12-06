@@ -18,7 +18,7 @@ const isNotificationsOpen = ref(false)
 const searchQuery = ref('')
 const openSubMenus = ref([])
 const activeNavItem = ref('dashboard')
-const isLoadingUser = ref(false) // ✅ Nuevo estado de carga
+const isLoadingUser = ref(false)
 
 // Datos computados
 const sidebarItems = computed(() => {
@@ -278,7 +278,7 @@ watch(() => router.currentRoute.value.path, () => {
           <div
             v-show="isNotificationsOpen"
             v-cloak
-            class="absolute right-0 mt-2 w-72 bg-white rounded-md shadow-lg py-2 z-20">
+            class="absolute right-0 mt-2 w-72 bg-white rounded-md shadow-lg py-2 z-20 custom-scrollbar">
             <div class="px-4 py-2 font-semibold text-gray-800 border-b border-gray-200">Notificaciones</div>
             <div v-if="notifications.length > 0" class="max-h-64 overflow-y-auto">
               <div
@@ -346,87 +346,131 @@ watch(() => router.currentRoute.value.path, () => {
     </header>
 
     <!-- Main Content Area -->
-    <div class="h-full flex flex-1 relative overflow-auto">
+    <div class="h-full flex flex-1 relative overflow-hidden">
       <!-- Left Sidebar -->
       <aside
-        class="bg-white w-64 p-6 shadow-lg lg:block fixed inset-y-0 left-0 z-20 transform transition-transform duration-300 ease-in-out rounded-xl"
+        class="bg-white w-72 flex flex-col border-r border-gray-200 fixed inset-y-0 left-0 z-30 transform transition-transform duration-300 ease-in-out"
         :class="isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
         style="top:76px; height: calc(100vh - 76px);">
         
+        <!-- Mobile Close Button -->
         <button
-          class="absolute top-4 right-4 p-2 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 lg:hidden"
+          class="absolute top-2 right-2 p-2 rounded-md hover:bg-gray-100 focus:outline-none lg:hidden"
           @click="closeSidebar">
-          <Icon name="i-heroicons-x-mark" class="h-6 w-6 text-gray-700" />
+          <Icon name="i-heroicons-x-mark" class="h-5 w-5 text-gray-500" />
         </button>
         
-        <h2 class="text-lg font-semibold text-gray-800 mb-6">Navegación Principal</h2>
-        <nav>
-          <ul>
-            <li v-for="item in sidebarItems" :key="item.key" class="mb-2">
-              <button
-                v-if="item.subItems"
-                @click="toggleSubMenu(item.key)"
-                class="flex items-center w-full py-2 px-4 rounded-md text-left transition duration-200 text-gray-700 hover:bg-gray-100"
-                :class="{
-                  'bg-green-100 text-green-700 font-semibold': isActiveNavItem(item.key),
-                  'bg-gray-100 text-gray-700 font-semibold': isParentActive(item.key)
-                }">
-                <Icon :name="item.icon" class="w-5 h-5 mr-3" />
-                <span class="flex-1">{{ item.name }}</span>
-                <Icon
-                  name="i-heroicons-chevron-down"
-                  class="w-4 h-4 transition-transform duration-200"
-                  :class="{ 'rotate-180': openSubMenus.includes(item.key) }" />
-              </button>
-              
-              <NuxtLink
-                v-else
-                :to="item.path"
-                class="flex items-center w-full py-2 px-4 rounded-md text-left transition duration-200 text-gray-700 hover:bg-gray-100"
-                :class="{ 'bg-green-100 text-green-700 font-semibold': isActiveNavItem(item.key) }"
-                @click="closeSidebar">
-                <Icon :name="item.icon" class="w-5 h-5 mr-3" />
-                <span>{{ item.name }}</span>
-              </NuxtLink>
+        <!-- User Profile Summary -->
+        <div class="px-6 py-6 border-b border-gray-50 flex items-center space-x-4 bg-gradient-to-r from-white to-gray-50">
+          <div class="relative">
+            <img 
+              :src="userAvatar" 
+              class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-md" 
+              alt="Avatar"
+              @error="handleAvatarError" 
+            />
+            <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
+          </div>
+          <div class="overflow-hidden">
+            <h3 class="font-bold text-gray-800 text-sm truncate">{{ userName }}</h3>
+            <p class="text-xs text-gray-500 capitalize truncate">{{ user?.rol || 'Usuario' }}</p>
+          </div>
+        </div>
 
-              <ul
-                v-if="item.subItems"
-                v-show="openSubMenus.includes(item.key)"
-                class="ml-8 mt-1 space-y-1">
-                <li v-for="subItem in item.subItems" :key="subItem.key">
-                  <NuxtLink
-                    :to="subItem.path"
-                    class="block w-full py-1 px-3 rounded-md text-left text-sm transition duration-200 text-gray-600 hover:bg-gray-50"
-                    :class="{ 'bg-green-50 text-green-600 font-medium': isActiveNavItem(subItem.key) }"
-                    @click="closeSidebar">
-                    {{ subItem.name }}
-                  </NuxtLink>
-                </li>
-              </ul>
-            </li>
-            <li v-if="sidebarItems.length === 0" class="text-red-500 p-2">No hay opciones disponibles</li>
-          </ul>
+        <!-- Navigation -->
+        <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-2 custom-scrollbar">
+          <template v-for="item in sidebarItems" :key="item.key">
+            <!-- Item with Submenu -->
+            <div v-if="item.subItems" class="space-y-1">
+              <button
+                @click="toggleSubMenu(item.key)"
+                class="w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group border border-transparent"
+                :class="[
+                  isActiveNavItem(item.key) || isParentActive(item.key)
+                    ? 'bg-green-50 text-green-700 border-green-100 shadow-sm'
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 hover:border-gray-100'
+                ]">
+                <div class="flex items-center">
+                  <div 
+                    class="p-1.5 rounded-lg mr-3 transition-colors duration-200"
+                    :class="isActiveNavItem(item.key) || isParentActive(item.key) ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-500 group-hover:bg-white group-hover:shadow-sm'">
+                    <Icon :name="item.icon" class="w-5 h-5" />
+                  </div>
+                  <span>{{ item.name }}</span>
+                </div>
+                <Icon
+                  name="i-heroicons-chevron-right"
+                  class="w-4 h-4 text-gray-400 transition-transform duration-200"
+                  :class="{ 'rotate-90': openSubMenus.includes(item.key) }" />
+              </button>
+
+              <!-- Submenu -->
+              <div 
+                v-show="openSubMenus.includes(item.key)" 
+                class="pl-12 pr-2 space-y-1 pt-1 pb-2">
+                <NuxtLink
+                  v-for="subItem in item.subItems"
+                  :key="subItem.key"
+                  :to="subItem.path"
+                  class="block px-3 py-2 text-sm rounded-lg transition-all duration-200 relative"
+                  :class="[
+                    isActiveNavItem(subItem.key)
+                      ? 'text-green-700 font-medium bg-green-50/50'
+                      : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
+                  ]"
+                  @click="closeSidebar">
+                  <span 
+                    v-if="isActiveNavItem(subItem.key)"
+                    class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 bg-green-500 rounded-r-full">
+                  </span>
+                  {{ subItem.name }}
+                </NuxtLink>
+              </div>
+            </div>
+
+            <!-- Simple Item -->
+            <NuxtLink
+              v-else
+              :to="item.path"
+              class="flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group border border-transparent"
+              :class="[
+                isActiveNavItem(item.key)
+                  ? 'bg-green-600 text-white shadow-md shadow-green-200'
+                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 hover:border-gray-100'
+              ]"
+              @click="closeSidebar">
+              <div 
+                class="p-1.5 rounded-lg mr-3 transition-colors duration-200"
+                :class="isActiveNavItem(item.key) ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-500 group-hover:bg-white group-hover:shadow-sm'">
+                <Icon :name="item.icon" class="w-5 h-5" />
+              </div>
+              <span>{{ item.name }}</span>
+            </NuxtLink>
+          </template>
+
+          <div v-if="sidebarItems.length === 0" class="text-center py-8">
+            <p class="text-gray-400 text-sm">No hay opciones disponibles</p>
+          </div>
         </nav>
 
-        <div class="mt-8 pt-6 border-t border-gray-200 text-sm text-gray-600 space-y-2">
-          <NuxtLink to="/privacidad" class="block hover:text-green-700">Condiciones de privacidad</NuxtLink>
-          <NuxtLink to="/politicas" class="block hover:text-green-700">Políticas y seguridad</NuxtLink>
-          <NuxtLink to="/como-funciona" class="block hover:text-green-700">Cómo funciona HERDIX</NuxtLink>
-          <NuxtLink to="/funciones-nuevas" class="block hover:text-green-700">Prueba funciones nuevas</NuxtLink>
+        <!-- Footer Links -->
+        <div class="p-6 border-t border-gray-100 bg-gray-50/30">
+          <div class="flex flex-wrap gap-x-4 gap-y-2 text-xs text-gray-500 justify-center">
+            <NuxtLink to="/ayuda" class="hover:text-green-600 transition-colors">Ayuda</NuxtLink>
+            <NuxtLink to="/privacidad" class="hover:text-green-600 transition-colors">Privacidad</NuxtLink>
+            <NuxtLink to="/politicas" class="hover:text-green-600 transition-colors">Términos</NuxtLink>
+          </div>
+          <p class="text-[10px] text-gray-400 mt-4 text-center font-medium">HERDIX &copy; {{ new Date().getFullYear() }}</p>
         </div>
       </aside>
 
-      <div
-        v-if="isSidebarOpen"
-        class="fixed inset-0 bg-black bg-opacity-50 z-10 lg:hidden"
-        @click="closeSidebar"></div>
-
-      <main class="flex-1 p-6 lg:p-8 overflow-y-auto lg:ml-64">
-        <slot />
-      </main>
+      <div class="flex-1 flex flex-col h-full overflow-y-auto lg:ml-72 transition-all duration-300">
+        <main class="flex-1 p-6 lg:p-8">
+          <slot />
+        </main>
+        <Footer/>
+      </div>
     </div>
-
-    <Footer/>
   </div>
 </template>
 
@@ -437,5 +481,23 @@ watch(() => router.currentRoute.value.path, () => {
 
 .transition-colors {
   transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #e5e7eb;
+  border-radius: 20px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #d1d5db;
 }
 </style>
