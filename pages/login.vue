@@ -298,7 +298,7 @@ async function login() {
       body: JSON.stringify({ email: email.value, password: password.value }),
       credentials: 'include',
     });
-    router.push('/profile');
+    router.push('/dashboard');
   } catch (err) {
     console.error('Error:', err);
     error.value = err.message === 'Fail to fetch' 

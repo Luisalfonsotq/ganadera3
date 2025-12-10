@@ -323,7 +323,7 @@ watch(() => router.currentRoute.value.path, () => {
             v-cloak
             class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20">
             <NuxtLink
-              to="/profile"
+              to="/dashboard"
               class="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md"
               @click="isUserOpen = false">
               Mi Perfil

@@ -1,4 +1,4 @@
-<!-- pages/profile.vue -->
+<!-- pages/dashboard.vue -->
 <template>
   <div>
     <!-- Dashboard según rol del usuario -->

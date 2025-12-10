@@ -6,7 +6,7 @@ export const roleSidebarConfig = {
     {
       name: 'Dashboard',
       icon: 'i-heroicons-home',
-      path: '/profile',
+      path: '/dashboard',
       key: 'dashboard'
     },
     {
@@ -21,6 +21,7 @@ export const roleSidebarConfig = {
         { name: 'Eventos', path: '/eventos-animal', key: 'events' },
         { name: 'Tipos de Eventos', path: '/tipos-evento-animal', key: 'events' },
         { name: 'Reproducción', path: '/reproducciones', key: 'reproduction' },
+        { name: 'Producción de Leche', path: '/produccion-leche', key: 'milk-production' },
       ]
     },
     {
@@ -84,7 +85,7 @@ export const roleSidebarConfig = {
     {
       name: 'Dashboard',
       icon: 'i-heroicons-home',
-      path: '/profile',
+      path: '/dashboard',
       key: 'dashboard'
     },
     {
@@ -244,6 +245,7 @@ export const btnCrear = {
     { name: 'Crear Potrero', icon: 'i-heroicons-map', path: '/potreros/crear' },
     { name: 'Asignar Tarea', icon: 'i-heroicons-clipboard-document', path: '/tareas/crear' },
     { name: 'Programar Evento', icon: 'i-heroicons-calendar-days', path: '/eventos/crear' },
+    { name: 'Registrar Producción', icon: 'i-heroicons-beaker', path: '/produccion-leche/crear' },
   ],
 
   Veterinario: [

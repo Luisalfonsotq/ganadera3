@@ -348,7 +348,7 @@ async function handleRegister() {
     success.value = '¡Cuenta creada! Tu solicitud está pendiente de aprobación.';
     
     setTimeout(() => {
-      router.push('/profile');
+      router.push('/dashboard');
     }, 2000);
     
   } catch (err) {
