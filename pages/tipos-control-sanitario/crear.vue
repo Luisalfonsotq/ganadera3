@@ -2,8 +2,22 @@
 <template>
   <div class="p-6 max-w-4xl mx-auto bg-white rounded-lg shadow-xl">
     <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Crear Nuevo Tipo de Control Sanitario</h2>
-    
+
     <form @submit.prevent="handleCrear" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Seleccionar Base (Opcional)</label>
+        <select @change="prellenarFormulario($event)"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 p-2 border">
+          <option value="">-- Personalizado --</option>
+          <option v-for="base in controlesSanitariosBase" :key="base.id" :value="base.id">
+            {{ base.nombre }} ({{ base.categoria }})
+          </option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Nombre del Control *</label>
+        <input type="text" v-model="form.nombre" required class="..." placeholder="Ej: Vacunación Aftosa">
+      </div>
       <div class="grid grid-cols-1 gap-4">
         <div>
           <label class="block text-sm font-medium text-gray-700">Nombre *</label>
@@ -43,7 +57,7 @@
         </button>
       </div>
     </form>
-    
+
     <div v-if="success" class="mt-4 p-3 bg-green-100 text-green-700 rounded-md font-medium">
       ✅ {{ success }}
     </div>
@@ -55,6 +69,19 @@
 
 <script setup>
 definePageMeta({ layout: 'profile-layout' })
+
+// Lógica agregada al <script setup>
+import { controlesSanitariosBase } from '@/utils/controlesSanitarios'
+
+const prellenarFormulario = (event) => {
+  const seleccionado = controlesSanitariosBase.find(c => c.id == event.target.value)
+  if (seleccionado) {
+    form.value.nombre = seleccionado.nombre
+    form.value.aplica_a_sexo = seleccionado.aplica_a_sexo
+    form.value.requiere_medicamento = seleccionado.requiere_medicamento
+    form.value.descripcion = `Control base de ${seleccionado.categoria}`
+  }
+}
 
 const { createTipoControlSanitario } = useTipoControlSanitario()
 const { user } = useAuth()
