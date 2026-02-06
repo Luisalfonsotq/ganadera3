@@ -70,7 +70,6 @@
 <script setup>
 definePageMeta({ layout: 'profile-layout' })
 
-// Lógica agregada al <script setup>
 import { controlesSanitariosBase } from '@/utils/controlesSanitarios'
 
 const prellenarFormulario = (event) => {

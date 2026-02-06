@@ -2,9 +2,33 @@
 <template>
   <div class="p-6 max-w-4xl mx-auto bg-white rounded-lg shadow-xl">
     <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Crear Nuevo Tipo de Evento de Animal</h2>
-    
+
     <form @submit.prevent="handleCrear" class="space-y-4">
       <div class="grid grid-cols-1 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">
+            Categoría de Eventos
+          </label>
+          <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-green-500 p-2 border" v-model="categoriaSeleccionada" @change="limpiarNombre">
+            <option value="">-- Selecciona una categoría --</option>
+            <option v-for="(_, cat) in tiposEventosAnimal" :key="cat" :value="cat">
+              {{ cat.toUpperCase() }}
+            </option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">
+            Seleccionar Evento
+          </label>
+          <select v-model="form.nombre" :disabled="!categoriaSeleccionada" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-green-500 p-2 border">
+            <option value="">-- Selecciona un evento --</option>
+            <option v-for="evento in opcionesFiltradas" :key="evento" :value="evento">
+              {{ evento }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Código anterior -->
         <div>
           <label class="block text-sm font-medium text-gray-700">Nombre *</label>
           <input type="text" v-model="form.nombre" required
@@ -27,7 +51,7 @@
         </button>
       </div>
     </form>
-    
+
     <div v-if="success" class="mt-4 p-3 bg-green-100 text-green-700 rounded-md font-medium">
       ✅ {{ success }}
     </div>
@@ -39,6 +63,28 @@
 
 <script setup>
 definePageMeta({ layout: 'profile-layout' })
+
+import { tiposEventosAnimal } from '@/utils/tiposEventos'
+
+const categoriaSeleccionada = ref('')
+
+// Filtrar los nombres basados en la categoría elegida
+const opcionesFiltradas = computed(()=> {
+  if(!categoriaSeleccionada.value) return []
+  return tiposEventosAnimal[categoriaSeleccionada.value]
+})
+
+// Limpiar el nombre si cambia de categoría
+const limpiarNombre = ()=> {
+  form.value.nombre = '';
+  if(categoriaSeleccionada.value === 'bajas'){
+    form.value.descripcion = 'Registro de salida definitiva del animal por: ';
+  } else if(categoriaSeleccionada.value === 'incidencias'){
+    form.value.descripcion = 'Reporte de novedad médica o de manejo: ';
+  }else{
+    form.value.descripcion = '';
+  }
+}
 
 const { createTipoEvento } = useTipoEventoAnimal()
 const { user } = useAuth()
