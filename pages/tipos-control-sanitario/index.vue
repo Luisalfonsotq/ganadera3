@@ -3,7 +3,7 @@
   <div class="p-6">
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-3xl font-bold text-gray-800">Listado de Tipos de Control Sanitario</h1>
-      <NuxtLink v-if="user?.rol === 'Administrador'" to="/tipos-control-sanitario/crear"
+      <NuxtLink v-if="user?.rol === 'Veterinario'" to="/tipos-control-sanitario/crear"
         class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-200">
         + Crear Tipo de Control Sanitario
       </NuxtLink>
@@ -33,15 +33,18 @@
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ tipo.nombre }}</td>
             <td class="px-6 py-4 text-sm text-gray-700">{{ tipo.descripcion || 'N/A' }}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ tipo.aplica_a_sexo ? 'Sí' : 'No' }}</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ tipo.requiere_medicamento ? 'Sí' : 'No' }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ tipo.requiere_medicamento ? 'Sí' : 'No' }}
+            </td>
             <td class="py-2 px-4 flex gap-2">
               <NuxtLink :to="`/tipos-control-sanitario/${tipo.id}`" class="text-blue-500 hover:underline">
                 <Icon name="i-heroicons-eye" class="w-5 h-5" />
               </NuxtLink>
-              <NuxtLink v-if="user?.rol === 'Administrador'" :to="`/tipos-control-sanitario/editar/${tipo.id}`" class="text-yellow-500 hover:underline">
+              <NuxtLink v-if="user?.rol === 'Veterinario'" :to="`/tipos-control-sanitario/editar/${tipo.id}`"
+                class="text-yellow-500 hover:underline">
                 <Icon name="i-heroicons-pencil" class="w-5 h-5" />
               </NuxtLink>
-              <button v-if="user?.rol === 'Administrador'" @click="handleDelete(tipo.id)" class="text-red-500 hover:text-red-700">
+              <button v-if="user?.rol === 'Veterinario'" @click="handleDelete(tipo.id)"
+                class="text-red-500 hover:text-red-700">
                 <Icon name="i-heroicons-trash" class="w-5 h-5" />
               </button>
             </td>

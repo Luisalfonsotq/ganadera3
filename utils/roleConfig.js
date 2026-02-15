@@ -17,7 +17,7 @@ export const roleSidebarConfig = {
       subItems: [
         { name: 'Listado de Animales', path: '/animales', key: 'animal-list' },
         { name: 'Listado de Proveedores', path: '/proveedores', key: 'proveedores-list' },
-        { name: 'Tipos de Controles Sanitario', path: '/tipos-control-sanitario', key: 'sanitary-control' },
+        // { name: 'Tipos de Controles Sanitario', path: '/tipos-control-sanitario', key: 'sanitary-control' },
         { name: 'Eventos', path: '/eventos-animal', key: 'events' },
         { name: 'Tipos de Eventos', path: '/tipos-evento-animal', key: 'events' },
         { name: 'Reproducción', path: '/reproducciones', key: 'reproduction' },
@@ -96,6 +96,7 @@ export const roleSidebarConfig = {
       subItems: [
         { name: 'Historial Médico', path: '/sanitario/historial', key: 'medical-history' },
         { name: 'Control Sanitario', path: '/controles-sanitarios', key: 'medical-history' },
+        { name: 'Tipos de Controles Sanitario', path: '/tipos-control-sanitario', key: 'sanitary-control' },
         { name: 'Vacunaciones', path: '/sanitario/vacunas', key: 'vaccinations' },
         { name: 'Tratamientos', path: '/sanitario/tratamientos', key: 'treatments' },
         { name: 'Diagnósticos', path: '/sanitario/diagnosticos', key: 'diagnostics' },

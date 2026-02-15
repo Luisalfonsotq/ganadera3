@@ -98,7 +98,7 @@ const success = ref(null)
 const errorMsg = ref(null)
 
 onMounted(() => {
-  if (!user.value || user.value.rol !== 'Administrador') {
+  if (!user.value || user.value.rol !== 'Veterinario') {
     alert('No autorizado para crear tipos de control sanitario')
     router.push('/tipos-control-sanitario')
   }
