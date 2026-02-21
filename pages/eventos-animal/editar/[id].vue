@@ -2,10 +2,10 @@
 <template>
   <div class="p-6 max-w-4xl mx-auto bg-white rounded-lg shadow-xl">
     <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Editar Evento de Animal</h2>
-    
+
     <div v-if="loading" class="text-center text-gray-500 py-8">Cargando información del evento...</div>
     <div v-else-if="errorMsg" class="text-center text-red-500 py-8 bg-red-50 rounded-lg p-4">{{ errorMsg }}</div>
-    
+
     <form v-else-if="form" @submit.prevent="handleSubmit" class="space-y-4">
       <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
         <div class="flex items-center">
@@ -88,12 +88,12 @@
       <div class="flex gap-2 pt-4">
         <button type="submit" :disabled="submitting"
           class="flex-1 md:flex-none inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-2 rounded-md shadow-md transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
-          <Icon name="heroicons:check" class="w-5 h-5 mr-2" /> 
+          <Icon name="heroicons:check" class="w-5 h-5 mr-2" />
           {{ submitting ? 'Guardando...' : 'Guardar Cambios' }}
         </button>
-        <NuxtLink to="/eventos-animal" 
+        <NuxtLink to="/eventos-animal"
           class="flex-1 md:flex-none inline-flex items-center justify-center bg-gray-500 hover:bg-gray-600 text-white font-bold px-6 py-2 rounded-md shadow-md transition duration-200">
-          <Icon name="heroicons:arrow-left" class="w-5 h-5 mr-2" /> 
+          <Icon name="heroicons:arrow-left" class="w-5 h-5 mr-2" />
           Cancelar
         </NuxtLink>
       </div>
@@ -141,10 +141,10 @@ const esCambioPotrero = computed(() => {
 const loadAnimales = async () => {
   const userId = user.value?.id || user.value?.userId
   if (!userId) return
-  
+
   loadingAnimales.value = true
   const { data: fincasData } = await getAllFincas(userId, user.value.rol)
-  
+
   if (fincasData.value && fincasData.value.length > 0) {
     const { data: animalesData } = await getAnimalesOfFinca(fincasData.value[0].id)
     if (animalesData.value) {
@@ -166,10 +166,10 @@ const loadTiposEvento = async () => {
 const loadPotreros = async () => {
   const userId = user.value?.id || user.value?.userId
   if (!userId) return
-  
+
   loadingPotreros.value = true
   const { data: fincasData } = await getAllFincas(userId, user.value.rol)
-  
+
   if (fincasData.value && fincasData.value.length > 0) {
     const { data: potrerosData } = await getPotrerosOfFinca(fincasData.value[0].id)
     if (potrerosData.value) {
@@ -195,6 +195,16 @@ onMounted(async () => {
   loading.value = false
 
   if (data.value) {
+    if (data.value.animal) {
+      const animalExiste = animales.value.find(a => a.id === data.value.animal.id)
+      if (!animalExiste) {
+        animales.value.push({
+          ...data.value.animal,
+          identificador_unico: `${data.value.animal.identificador_unico} (Dado de baja)`
+        })
+      }
+    }
+
     form.value = {
       ...data.value,
       fecha: data.value.fecha ? data.value.fecha.split('T')[0] : null,
@@ -215,7 +225,7 @@ const handleSubmit = async () => {
     const dataToUpdate = { ...form.value }
 
     const { data, error } = await updateEvento(form.value.id, dataToUpdate)
-    
+
     if (data) {
       updateSuccess.value = 'Evento actualizado exitosamente'
       setTimeout(() => {

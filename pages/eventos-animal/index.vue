@@ -24,7 +24,6 @@
             <th class="py-2 px-4 text-left">Tipo Evento</th>
             <th class="py-2 px-4 text-left">Fecha</th>
             <th class="py-2 px-4 text-left">Detalle</th>
-            <th class="py-2 px-4 text-left">Valor Medida</th>
             <th class="py-2 px-4 text-left">Acciones</th>
           </tr>
         </thead>
@@ -42,9 +41,6 @@
             </td>
             <td class="px-6 py-4 text-sm text-gray-700">
               {{ evento.detalle || 'N/A' }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-              {{ evento.valor_medida || 'N/A' }}
             </td>
             <td class="py-2 px-4 flex gap-2">
               <NuxtLink :to="`/eventos-animal/${evento.id}`" class="text-blue-500 hover:underline">
