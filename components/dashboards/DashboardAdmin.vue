@@ -122,10 +122,11 @@
           <div v-if="fincas.length === 0"
             class="bg-white rounded-xl shadow-sm p-12 text-center border-dashed border-2 border-slate-200">
             <Icon name="i-heroicons-home" class="w-16 h-16 text-slate-300 mx-auto mb-4" />
-            <p class="text-slate-500 text-lg">No tienes fincas registradas aún.</p>
-            <button class="mt-4 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition">
+            <p class="text-slate-500 text-lg pb-2">No tienes fincas registradas aún.</p>
+            <NuxtLink to="/fincas/crear"
+              class="mt-4 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition">
               Registrar Finca
-            </button>
+            </NuxtLink>
           </div>
 
           <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-4">
