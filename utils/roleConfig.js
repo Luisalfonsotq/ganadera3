@@ -565,12 +565,6 @@ export const roleSidebarConfig = {
       icon: 'i-heroicons-chart-bar',
       path: '/reportes',
       key: 'reports',
-      subItems: [
-        { name: 'Rendimiento', path: '/reportes/rendimiento', key: 'performance-reports' },
-        { name: 'Salud', path: '/reportes/salud', key: 'health-reports' },
-        { name: 'Financieros', path: '/reportes/financieros', key: 'financial-reports' },
-        { name: 'Inventario', path: '/reportes/inventario', key: 'inventory-reports' },
-      ]
     },
     {
       name: 'Configuración',
@@ -618,15 +612,10 @@ export const roleSidebarConfig = {
       ]
     },
     {
-      name: 'Reportes Médicos',
-      icon: 'i-heroicons-document-text',
-      path: '/reportes-medicos',
-      key: 'medical-reports',
-      subItems: [
-        { name: 'Estado de Salud', path: '/reportes-medicos/salud', key: 'health-status' },
-        { name: 'Medicamentos', path: '/reportes-medicos/medicamentos', key: 'medications' },
-        { name: 'Estadísticas', path: '/reportes-medicos/estadisticas', key: 'medical-statistics' },
-      ]
+      name: 'Reportes',
+      icon: 'i-heroicons-chart-bar',
+      path: '/reportes',
+      key: 'reports',
     },
     {
       name: 'Ayuda',
@@ -674,10 +663,6 @@ export const roleSidebarConfig = {
       icon: 'i-heroicons-chart-bar',
       path: '/reportes',
       key: 'reports',
-      subItems: [
-        { name: 'Productividad', path: '/reportes/productividad', key: 'productivity-reports' },
-        { name: 'Cumplimiento', path: '/reportes/cumplimiento', key: 'compliance-reports' },
-      ]
     },
     {
       name: 'Ayuda',
