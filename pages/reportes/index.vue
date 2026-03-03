@@ -9,44 +9,87 @@
             <span class="p-2 bg-emerald-100 rounded-xl">
               <Icon name="i-heroicons-chart-bar" class="w-7 h-7 text-emerald-600" />
             </span>
-            Reportes & Estadísticas
+            Reportes &amp; Estadísticas
           </h1>
           <p class="text-slate-500 mt-2 text-base">Visualiza KPIs y tendencias de tu finca en tiempo real</p>
         </div>
 
-        <!-- Selector de finca -->
-        <div class="flex items-center gap-3">
-          <label class="text-sm font-semibold text-slate-600">Finca:</label>
-          <div class="relative">
-            <select
-              id="selector-finca"
-              v-model="selectedFincaId"
-              @change="onFincaChange"
-              class="pl-4 pr-10 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-medium text-slate-700
-                     focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 shadow-sm appearance-none"
-            >
-              <option v-for="f in fincas" :key="f.id" :value="f.id">{{ f.nombre }}</option>
-            </select>
-            <Icon name="i-heroicons-chevron-down" class="absolute right-3 top-3 w-4 h-4 text-slate-400 pointer-events-none" />
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+          <!-- Selectores -->
+          <div class="flex items-center gap-3">
+            <label class="text-sm font-semibold text-slate-600">Finca:</label>
+            <div class="relative">
+              <select
+                id="selector-finca"
+                v-model="selectedFincaId"
+                @change="onFincaChange"
+                class="pl-4 pr-10 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-medium text-slate-700
+                       focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 shadow-sm appearance-none"
+              >
+                <option v-for="f in fincas" :key="f.id" :value="f.id">{{ f.nombre }}</option>
+              </select>
+              <Icon name="i-heroicons-chevron-down" class="absolute right-3 top-3 w-4 h-4 text-slate-400 pointer-events-none" />
+            </div>
+
+            <!-- Selector de periodo -->
+            <div class="relative">
+              <select
+                id="selector-meses"
+                v-model="selectedMeses"
+                @change="onFincaChange"
+                class="pl-4 pr-10 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-medium text-slate-700
+                       focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 shadow-sm appearance-none"
+              >
+                <option :value="3">Últimos 3 meses</option>
+                <option :value="6">Últimos 6 meses</option>
+                <option :value="12">Últimos 12 meses</option>
+              </select>
+              <Icon name="i-heroicons-chevron-down" class="absolute right-3 top-3 w-4 h-4 text-slate-400 pointer-events-none" />
+            </div>
           </div>
 
-          <!-- Selector de periodo -->
-          <div class="relative">
-            <select
-              id="selector-meses"
-              v-model="selectedMeses"
-              @change="onFincaChange"
-              class="pl-4 pr-10 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-medium text-slate-700
-                     focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 shadow-sm appearance-none"
+          <!-- Botones de descarga -->
+          <div v-if="selectedFincaId" class="flex items-center gap-2">
+            <button
+              id="btn-download-excel"
+              @click="handleDownloadExcel"
+              :disabled="downloading"
+              class="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50
+                     disabled:cursor-not-allowed text-white text-sm font-semibold rounded-xl shadow-sm
+                     transition-all duration-200 hover:shadow-md"
             >
-              <option :value="3">Últimos 3 meses</option>
-              <option :value="6">Últimos 6 meses</option>
-              <option :value="12">Últimos 12 meses</option>
-            </select>
-            <Icon name="i-heroicons-chevron-down" class="absolute right-3 top-3 w-4 h-4 text-slate-400 pointer-events-none" />
+              <span v-if="downloading" class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+              <Icon v-else name="i-heroicons-table-cells" class="w-4 h-4" />
+              Excel
+            </button>
+            <button
+              id="btn-download-pdf"
+              @click="handleDownloadPdf"
+              :disabled="downloading"
+              class="flex items-center gap-2 px-4 py-2.5 bg-rose-600 hover:bg-rose-700 disabled:opacity-50
+                     disabled:cursor-not-allowed text-white text-sm font-semibold rounded-xl shadow-sm
+                     transition-all duration-200 hover:shadow-md"
+            >
+              <span v-if="downloading" class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+              <Icon v-else name="i-heroicons-document-arrow-down" class="w-4 h-4" />
+              PDF
+            </button>
           </div>
         </div>
       </div>
+
+      <!-- Error de descarga -->
+      <div
+        v-if="downloadError"
+        class="flex items-center gap-3 px-4 py-3 bg-red-50 border border-red-200 text-red-700 rounded-xl text-sm"
+      >
+        <Icon name="i-heroicons-exclamation-circle" class="w-5 h-5 flex-shrink-0" />
+        <span>Error al descargar: {{ downloadError }}</span>
+        <button @click="downloadError = null" class="ml-auto text-red-400 hover:text-red-600">
+          <Icon name="i-heroicons-x-mark" class="w-4 h-4" />
+        </button>
+      </div>
+
 
       <!-- ── LOADING GLOBAL ──────────────────────────────────────────── -->
       <div v-if="loading" class="flex flex-col items-center justify-center py-24 gap-4">
@@ -327,6 +370,7 @@ const {
   estadisticasReproduccion, getEstadisticasReproduccion,
   estadisticasSanidad, getEstadisticasSanidad,
   distribucionRaza, distribucionEtapa, distribucionSalud, getDistribucionAnimales,
+  downloading, downloadError, downloadExcel, downloadPdf,
 } = useReportes()
 
 const fincas = ref([])
@@ -581,6 +625,20 @@ const onFincaChange = async () => {
     getEstadisticasSanidad(id, meses),
     getDistribucionAnimales(id),
   ])
+}
+
+const selectedFinca = computed(() => fincas.value.find(f => f.id === selectedFincaId.value))
+
+const handleDownloadExcel = () => {
+  if (selectedFincaId.value) {
+    downloadExcel(selectedFincaId.value, selectedMeses.value, selectedFinca.value?.nombre || '')
+  }
+}
+
+const handleDownloadPdf = () => {
+  if (selectedFincaId.value) {
+    downloadPdf(selectedFincaId.value, selectedMeses.value, selectedFinca.value?.nombre || '')
+  }
 }
 
 onMounted(async () => {
