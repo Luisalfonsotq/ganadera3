@@ -694,42 +694,20 @@ export const roleSidebarConfig = {
     {
       name: 'Mis Tareas',
       icon: 'i-heroicons-clipboard-document-check',
-      path: '/tareas',
+      path: '/mis-tareas',
       key: 'my-tasks',
-      subItems: [
-        { name: 'Tareas Pendientes', path: '/tareas/pendientes', key: 'pending-tasks' },
-        { name: 'Tareas Completadas', path: '/tareas/completadas', key: 'completed-tasks' },
-        { name: 'Historial', path: '/tareas/historial', key: 'task-history' },
-      ]
     },
     {
-      name: 'Checklists',
-      icon: 'i-heroicons-check-circle',
-      path: '/checklists',
-      key: 'checklists',
-      subItems: [
-        { name: 'Rutinas Diarias', path: '/checklists/diarias', key: 'daily-routines' },
-        { name: 'Mantenimiento', path: '/checklists/mantenimiento', key: 'maintenance' },
-      ]
-    },
-    {
-      name: 'Reportar',
+      name: 'Reportar Incidencia',
       icon: 'i-heroicons-exclamation-triangle',
-      path: '/reportar',
+      path: '/reportar/incidencias',
       key: 'report',
-      subItems: [
-        { name: 'Incidencias', path: '/reportar/incidencias', key: 'report-incidents' },
-        { name: 'Observaciones', path: '/reportar/observaciones', key: 'observations' },
-      ]
     },
     {
       name: 'Ayuda',
       icon: 'i-heroicons-question-mark-circle',
       path: '/ayuda',
       key: 'help',
-      subItems: [
-        { name: 'Guía de Tareas', path: '/ayuda/tareas', key: 'task-guide' },
-      ]
     },
   ],
   Pending: [],
@@ -756,16 +734,12 @@ export const btnCrear = {
   ],
 
   Supervisor: [
-    { name: 'Crear Alerta', icon: 'i-heroicons-bell', path: '/alertas/crear' },
-    { name: 'Asignar Actividad', icon: 'i-heroicons-list-bullet', path: '/actividades/crear' },
-    { name: 'Generar Reporte', icon: 'i-heroicons-document-chart-bar', path: '/reportes/generar' },
-    { name: 'Programar Supervisión', icon: 'i-heroicons-eye', path: '/supervision/programar' },
+    { name: 'Nueva Tarea', icon: 'i-heroicons-clipboard-document', path: '/tareas/crear' },
+    { name: 'Generar Reporte', icon: 'i-heroicons-document-chart-bar', path: '/reportes' },
   ],
 
   Colaborador: [
-    { name: 'Reportar Incidencia', icon: 'i-heroicons-exclamation-triangle', path: '/incidencias/crear' },
-    { name: 'Registrar Observación', icon: 'i-heroicons-chat-bubble-left-right', path: '/observaciones/crear' },
-    { name: 'Solicitar Ayuda', icon: 'i-heroicons-hand-raised', path: '/ayuda/solicitar' },
+    { name: 'Reportar Incidencia', icon: 'i-heroicons-exclamation-triangle', path: '/reportar/incidencias' },
   ],
 };
 
