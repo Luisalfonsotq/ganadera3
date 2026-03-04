@@ -561,6 +561,17 @@ export const roleSidebarConfig = {
       ]
     },
     {
+      name: 'Tareas',
+      icon: 'i-heroicons-clipboard-document-check',
+      path: '/supervision/tareas',
+      key: 'tareas',
+      subItems: [
+        { name: 'Panel de Tareas', path: '/supervision/tareas', key: 'task-panel' },
+        { name: 'Crear Tarea', path: '/tareas/crear', key: 'task-create' },
+        { name: 'Actividades y Ubicación', path: '/supervision/actividades', key: 'activities' },
+      ]
+    },
+    {
       name: 'Reportes',
       icon: 'i-heroicons-chart-bar',
       path: '/reportes',
@@ -637,25 +648,23 @@ export const roleSidebarConfig = {
       key: 'dashboard'
     },
     {
+      name: 'Tareas',
+      icon: 'i-heroicons-clipboard-document-check',
+      path: '/supervision/tareas',
+      key: 'tareas',
+      subItems: [
+        { name: 'Panel de Tareas', path: '/supervision/tareas', key: 'task-panel' },
+        { name: 'Nueva Tarea', path: '/tareas/crear', key: 'task-create' },
+      ]
+    },
+    {
       name: 'Supervisión',
       icon: 'i-heroicons-eye',
       path: '/supervision',
       key: 'supervision',
       subItems: [
-        { name: 'Actividades Diarias', path: '/supervision/actividades', key: 'daily-activities' },
-        { name: 'Control de Tareas', path: '/supervision/tareas', key: 'task-control' },
+        { name: 'Actividades y Ubicación', path: '/supervision/actividades', key: 'daily-activities' },
         { name: 'Monitoreo de Personal', path: '/supervision/personal', key: 'staff-monitoring' },
-      ]
-    },
-    {
-      name: 'Alertas',
-      icon: 'i-heroicons-bell',
-      path: '/alertas',
-      key: 'alerts',
-      subItems: [
-        { name: 'Alertas Activas', path: '/alertas/activas', key: 'active-alerts' },
-        { name: 'Historial de Alertas', path: '/alertas/historial', key: 'alert-history' },
-        { name: 'Configurar Alertas', path: '/alertas/configurar', key: 'configure-alerts' },
       ]
     },
     {
