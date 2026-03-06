@@ -129,12 +129,20 @@ const handleDelete = async (id) => {
           <h1 class="text-3xl font-bold text-gray-800 mb-2">Mis Potreros</h1>
           <p class="text-gray-600">Administra y monitorea tus áreas de pastoreo</p>
         </div>
-        <NuxtLink 
-          to="/potreros/crear" 
-          class="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 font-medium">
-          <Icon name="i-heroicons-plus-circle" class="w-5 h-5 mr-2" /> 
-          Nuevo Potrero
-        </NuxtLink>
+        <div class="flex gap-3">
+          <NuxtLink
+            to="/potreros/rotacion"
+            class="inline-flex items-center justify-center bg-teal-600 hover:bg-teal-700 text-white px-5 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 font-medium">
+            <Icon name="i-heroicons-arrow-path-rounded-square" class="w-5 h-5 mr-2" />
+            Rotar Potreros
+          </NuxtLink>
+          <NuxtLink 
+            to="/potreros/crear" 
+            class="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 font-medium">
+            <Icon name="i-heroicons-plus-circle" class="w-5 h-5 mr-2" /> 
+            Nuevo Potrero
+          </NuxtLink>
+        </div>
       </div>
     </div>
 

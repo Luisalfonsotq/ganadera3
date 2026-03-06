@@ -546,7 +546,17 @@ export const roleSidebarConfig = {
       key: 'farms',
       subItems: [
         { name: 'Mis Fincas', path: '/fincas', key: 'my-farms' },
-        // { name: 'Potreros', path: '/potreros', key: 'paddocks' },
+      ]
+    },
+    {
+      name: 'Potreros',
+      icon: 'i-heroicons-map',
+      path: '/potreros',
+      key: 'potreros',
+      subItems: [
+        { name: 'Listado de Potreros', path: '/potreros', key: 'potreros-list' },
+        { name: 'Rotación de Potreros', path: '/potreros/rotacion', key: 'potreros-rotacion' },
+        { name: 'Crear Potrero', path: '/potreros/crear', key: 'potreros-crear' },
       ]
     },
     {
@@ -655,6 +665,16 @@ export const roleSidebarConfig = {
       subItems: [
         { name: 'Panel de Tareas', path: '/supervision/tareas', key: 'task-panel' },
         { name: 'Nueva Tarea', path: '/tareas/crear', key: 'task-create' },
+      ]
+    },
+    {
+      name: 'Potreros',
+      icon: 'i-heroicons-map',
+      path: '/potreros',
+      key: 'potreros',
+      subItems: [
+        { name: 'Listado de Potreros', path: '/potreros', key: 'potreros-list' },
+        { name: 'Rotación de Potreros', path: '/potreros/rotacion', key: 'potreros-rotacion' },
       ]
     },
     {
