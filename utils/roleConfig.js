@@ -532,8 +532,9 @@ export const roleSidebarConfig = {
       key: 'cattle',
       subItems: [
         { name: 'Listado de Animales', path: '/animales', key: 'animal-list' },
+        { name: 'Historial Clínico', path: '/historial-animal', key: 'historial-animal' },
+        { name: 'Controles Sanitarios', path: '/controles-sanitarios', key: 'controles-sanitarios' },
         { name: 'Listado de Proveedores', path: '/proveedores', key: 'proveedores-list' },
-        // { name: 'Tipos de Controles Sanitario', path: '/tipos-control-sanitario', key: 'sanitary-control' },
         { name: 'Eventos', path: '/eventos-animal', key: 'events' },
         { name: 'Reproducción', path: '/reproducciones', key: 'reproduction' },
         { name: 'Producción de Leche', path: '/produccion-leche', key: 'milk-production' },
@@ -624,12 +625,8 @@ export const roleSidebarConfig = {
       path: '/sanitario',
       key: 'sanitary',
       subItems: [
-        { name: 'Historial Médico', path: '/sanitario/historial', key: 'medical-history' },
-        { name: 'Control Sanitario', path: '/controles-sanitarios', key: 'medical-history' },
-        { name: 'Tipos de Controles Sanitario', path: '/tipos-control-sanitario', key: 'sanitary-control' },
-        { name: 'Vacunaciones', path: '/sanitario/vacunas', key: 'vaccinations' },
-        { name: 'Tratamientos', path: '/sanitario/tratamientos', key: 'treatments' },
-        { name: 'Diagnósticos', path: '/sanitario/diagnosticos', key: 'diagnostics' },
+        { name: 'Historial Clínico', path: '/historial-animal', key: 'historial-animal' },
+        { name: 'Control Sanitario', path: '/controles-sanitarios', key: 'controles-sanitarios' },
       ]
     },
     {

@@ -32,10 +32,8 @@
           <div class="text-right">
             <p class="text-sm text-gray-600">Total Controles</p>
             <p class="text-4xl font-bold text-green-600">{{ historial.total_controles }}</p>
-            <NuxtLink 
-              :to="`/controles-sanitarios/crear?animal_id=${historial.animal.id}`"
-              class="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition text-sm"
-            >
+            <NuxtLink :to="`/controles-sanitarios/crear?animal_id=${historial.animal.id}`"
+              class="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition text-sm">
               <Icon name="heroicons:plus" class="w-4 h-4" />
               Nuevo Control
             </NuxtLink>
@@ -77,10 +75,9 @@
           <div v-for="tipo in historial.controles_por_tipo" :key="tipo.nombre" class="flex items-center">
             <span class="w-40 text-sm text-gray-700 font-medium">{{ tipo.nombre }}</span>
             <div class="flex-1 bg-gray-200 rounded-full h-8 ml-4 overflow-hidden">
-              <div 
+              <div
                 class="bg-gradient-to-r from-green-400 to-green-600 h-8 rounded-full flex items-center justify-end pr-3 transition-all duration-500"
-                :style="`width: ${(tipo.cantidad / historial.total_controles) * 100}%`"
-              >
+                :style="`width: ${(tipo.cantidad / historial.total_controles) * 100}%`">
                 <span class="text-xs text-white font-bold">{{ tipo.cantidad }}</span>
               </div>
             </div>
@@ -102,10 +99,8 @@
             Historial Completo
           </h2>
           <div class="flex gap-2">
-            <button 
-              @click="ordenInvertido = !ordenInvertido"
-              class="px-3 py-1 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center gap-2"
-            >
+            <button @click="ordenInvertido = !ordenInvertido"
+              class="px-3 py-1 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center gap-2">
               <Icon :name="ordenInvertido ? 'heroicons:arrow-up' : 'heroicons:arrow-down'" class="w-4 h-4" />
               {{ ordenInvertido ? 'Más antiguos' : 'Más recientes' }}
             </button>
@@ -119,21 +114,14 @@
         <div v-else class="relative">
           <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-300"></div>
           <div class="space-y-6">
-            <div 
-              v-for="(control, index) in historialOrdenado" 
-              :key="control.id" 
-              class="relative pl-16"
-            >
-              <div 
-                :class="[
-                  'absolute left-6 w-5 h-5 rounded-full border-4 border-white',
-                  index === 0 ? 'bg-green-500' : 'bg-gray-400'
-                ]"
-              ></div>
-              <div 
+            <div v-for="(control, index) in historialOrdenado" :key="control.id" class="relative pl-16">
+              <div :class="[
+                'absolute left-6 w-5 h-5 rounded-full border-4 border-white',
+                index === 0 ? 'bg-green-500' : 'bg-gray-400'
+              ]"></div>
+              <div
                 class="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-green-500 hover:shadow-md transition cursor-pointer"
-                @click="navegarAControl(control.id)"
-              >
+                @click="navegarAControl(control.id)">
                 <div class="flex justify-between items-start mb-3">
                   <div>
                     <h3 class="font-bold text-gray-800 text-lg">{{ control.tipo_control.nombre }}</h3>
@@ -177,7 +165,8 @@
                   </div>
                 </div>
 
-                <div v-if="control.observaciones" class="mt-3 text-sm text-gray-700 bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+                <div v-if="control.observaciones"
+                  class="mt-3 text-sm text-gray-700 bg-blue-50 p-3 rounded border-l-4 border-blue-400">
                   <p class="font-medium text-blue-900 mb-1 flex items-center gap-2">
                     <Icon name="heroicons:document-text" class="w-4 h-4" />
                     Observaciones:
@@ -199,17 +188,13 @@
 
       <!-- Botones de acción -->
       <div class="mt-6 flex gap-3">
-        <NuxtLink 
-          to="/animales"
-          class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition flex items-center gap-2"
-        >
+        <NuxtLink to="/animales"
+          class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition flex items-center gap-2">
           <Icon name="heroicons:arrow-left" class="w-5 h-5" />
           Volver a Animales
         </NuxtLink>
-        <NuxtLink 
-          :to="`/animales/${historial.animal.id}`"
-          class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition flex items-center gap-2"
-        >
+        <NuxtLink :to="`/animales/${historial.animal.id}`"
+          class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition flex items-center gap-2">
           <Icon name="heroicons:eye" class="w-5 h-5" />
           Ver Perfil del Animal
         </NuxtLink>
@@ -253,10 +238,10 @@ onMounted(async () => {
 
 const formatDate = (date) => {
   if (!date) return 'N/A'
-  return new Date(date).toLocaleDateString('es-ES', { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
+  return new Date(date).toLocaleDateString('es-ES', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
   })
 }
 
@@ -287,7 +272,7 @@ const formatEtapa = (etapa) => {
   return etapas[etapa] || etapa
 }
 
-const getEstadoSaludClases = (estado) => {
+const getEstadoSaludClasses = (estado) => {
   const estados = {
     'sano': 'px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium',
     'diagnosticado_enfermo': 'px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium',
@@ -298,7 +283,7 @@ const getEstadoSaludClases = (estado) => {
 
 const getTipoMasFrecuente = () => {
   if (!historial.value?.controles_por_tipo?.length) return 'N/A'
-  const max = historial.value.controles_por_tipo.reduce((prev, current) => 
+  const max = historial.value.controles_por_tipo.reduce((prev, current) =>
     current.cantidad > prev.cantidad ? current : prev
   )
   return max.nombre
@@ -306,7 +291,7 @@ const getTipoMasFrecuente = () => {
 
 const getCantidadTipoMasFrecuente = () => {
   if (!historial.value?.controles_por_tipo?.length) return 0
-  const max = historial.value.controles_por_tipo.reduce((prev, current) => 
+  const max = historial.value.controles_por_tipo.reduce((prev, current) =>
     current.cantidad > prev.cantidad ? current : prev
   )
   return max.cantidad
