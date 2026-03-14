@@ -610,6 +610,12 @@ export const roleSidebarConfig = {
         { name: 'Soporte Técnico', path: '/ayuda/soporte', key: 'technical-support' },
       ]
     },
+    {
+      name: 'Auditoría',
+      icon: 'i-heroicons-clipboard-document-list',
+      path: '/auditoria',
+      key: 'auditoria'
+    },
   ],
 
   Veterinario: [
@@ -698,6 +704,12 @@ export const roleSidebarConfig = {
       subItems: [
         { name: 'Manual de Supervisión', path: '/ayuda/manual', key: 'supervision-manual' },
       ]
+    },
+    {
+      name: 'Auditoría',
+      icon: 'i-heroicons-clipboard-document-list',
+      path: '/auditoria',
+      key: 'auditoria'
     },
   ],
 
