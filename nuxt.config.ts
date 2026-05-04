@@ -2,12 +2,19 @@ import { defineNuxtConfig } from 'nuxt/config'
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-09-22',
-  
+
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', type: 'image/png', href: '/vaca.png' }
+      ],
+    }
+  },
   // Módulos
   modules: [
     '@nuxtjs/tailwindcss', '@nuxt/icon'
   ],
-  
+
   // Devtools
   devtools: { enabled: false },
 
@@ -18,5 +25,5 @@ export default defineNuxtConfig({
       apiBaseUrl: ''
     }
   }
-  
+
 })
