@@ -1,23 +1,6 @@
 // composables/useReportes.js
 import { ref } from 'vue';
-
-const BASE_URL = 'http://localhost:3001';
-
-async function apiFetch(path) {
-    const res = await fetch(`${BASE_URL}${path}`, {
-        credentials: 'include',
-    });
-    if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
-    return res.json();
-}
-
-async function apiFetchBlob(path) {
-    const res = await fetch(`${BASE_URL}${path}`, {
-        credentials: 'include',
-    });
-    if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
-    return res;
-}
+import { useRuntimeConfig } from '#app';
 
 function triggerDownload(blob, filename) {
     const url = URL.createObjectURL(blob);
@@ -31,6 +14,25 @@ function triggerDownload(blob, filename) {
 }
 
 export const useReportes = () => {
+    const config = useRuntimeConfig();
+    const BASE_URL = config.public.apiBaseUrl || 'http://localhost:3001/api';
+
+    async function apiFetch(path) {
+        const res = await fetch(`${BASE_URL}${path}`, {
+            credentials: 'include',
+        });
+        if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
+        return res.json();
+    }
+
+    async function apiFetchBlob(path) {
+        const res = await fetch(`${BASE_URL}${path}`, {
+            credentials: 'include',
+        });
+        if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
+        return res;
+    }
+
     const loading = ref(false);
     const error = ref(null);
 
