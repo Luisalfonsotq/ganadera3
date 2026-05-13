@@ -195,7 +195,7 @@
 
       <!-- PASO 3: Detalles del Control -->
       <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
-        :class="{ 'opacity-50 pointer-events-none': !form.tipo_control_id }">
+        :class="{ 'opacity-50 pointer-events-none': !form.nombre_control }">
         <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-purple-50 to-pink-50">
           <h2 class="font-semibold text-gray-800 flex items-center gap-2">
             <span
